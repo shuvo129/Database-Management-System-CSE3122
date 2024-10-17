@@ -1,0 +1,210 @@
+  DROP TABLE Stored_Test; 
+
+  CREATE TABLE Stored_Test
+  (
+  ID NUMBER(6) PRIMARY KEY,
+  Mark NUMBER(8),
+  Name VARCHAR2(10),
+  Story VARCHAR2(10)
+  );
+
+  INSERT INTO Stored_Test
+    VALUES(10,71,'pqr','B');
+
+  SELECT * FROM Stored_Test;
+
+   CREATE TABLE Stored_Test2
+   AS SELECT * FROM Stored_Test;
+ 
+   CREATE TABLE Stored_Test3
+   AS SELECT * FROM Stored_Test;
+
+   AlTER TABLE Stored_Test3
+      ADD (Z NUMBER(8));
+   
+  SELECT * FROM Stored_Test3;
+  SELECT * FROM Stored_Test;
+
+  UPDATE  Stored_Test3
+   SET  Stored_Test3.Z= Stored_Test.ID
+   WHERE Stored_Test.ID =  Stored_Test3.ID;
+
+  CREATE TABLE Stored_Test_Loop_Update
+   AS SELECT * FROM Stored_Test3;
+
+  UPDATE Stored_Test_Loop_Update
+    SET Z=10;
+
+   SELECT * FROM Stored_Test_Loop_Update;
+
+
+/* PL/SQL Example */
+
+  DECLARE
+     n INT:=0;
+  
+  BEGIN
+     FOR n IN 1..10 LOOP
+        UPDATE Stored_Test_Loop_Update
+          SET Z=n
+          WHERE ID=n;
+        END LOOP;
+  END;
+  SELECT * FROM Stored_Test_Loop_Update;
+
+/* PL/SQL Example */
+
+  DECLARE
+     n INT:=0;
+     m INT:=1;
+  
+  BEGIN
+     FOR n IN 1..10 LOOP
+        UPDATE Stored_Test_Loop_Update
+          SET Z=m
+          WHERE ID=n;
+          m:=m+1;
+        END LOOP;
+  END;
+  SELECT * FROM Stored_Test_Loop_Update;
+  SELECT * FROM Stored_Test2;
+  
+  /* single-row subquery returns more than one row
+      UPDATE Stored_Test_Loop_Update
+      SET Stored_Test_Loop_Update.Z= (SELECT Stored_Test2.ID
+           FROM Stored_Test2, Stored_Test_Loop_Update
+           WHERE Stored_Test2.ID=Stored_Test_Loop_Update.ID); */
+
+
+
+     SELECT * FROM TAB;
+
+
+  CREATE SEQUENCE Seq_Test
+  INCREMENT BY 1
+  MINVALUE 1
+  MAXVALUE 100
+  CYCLE;
+
+    SELECT Seq_Test.NEXTVAL FROM DUAL;
+    
+    SELECT Seq_Test.CURRVAL FROM DUAL;
+    SELECT * FROM Stored_Test_Loop_Update;
+
+   
+  SELECT * FROM USER_SEQUENCES;
+
+  SELECT * FROM Stored_Test_Loop_Update;
+  SELECT * FROM Stored_Test;
+  SELECT * FROM Stored_Test2;  
+  SELECT * FROM Stored_Test3;
+
+  ALTER TABLE Stored_Test
+    ADD (Z NUMBER(8));
+
+  ALTER TABLE Stored_Test2
+    ADD (Z NUMBER(8));
+
+  UPDATE Stored_Test
+     SET Z=ID;
+
+  DELETE FROM Stored_Test WHERE ID=5;
+  DELETE FROM Stored_Test WHERE ID=7;
+
+  DESCRIBE Stored_Test;
+  DESCRIBE Stored_Test2;
+  SELECT * FROM TAB;
+
+/* Cursor */
+
+ 
+/* Cursor */
+
+  DECLARE
+     CURSOR Cursor_Stored_Test IS SELECT ID, Z FROM Stored_Test;
+     TempID Stored_Test.ID%type;
+     TempZ  Stored_Test.Z%type;
+  
+  BEGIN
+     OPEN Cursor_Stored_Test;
+
+
+     IF Cursor_Stored_Test%ISOPEN THEN
+        LOOP
+        FETCH Cursor_Stored_Test INTO TempID, TempZ;
+        EXIT WHEN Cursor_Stored_Test%NOTFOUND;
+
+        UPDATE Stored_Test2
+           SET Z=TempZ
+           WHERE ID=TempID;
+        END LOOP;
+     COMMIT;
+
+     CLOSE Cursor_Stored_Test;
+     END IF;
+   END;  
+
+
+
+CREATE OR REPLACE PROCEDURE Proc_Stored_Test
+   (X IN NUMBER(8))
+   AS
+   BEGIN
+   SELECT * FROM Stored_Test WHERE X > Stored_Test.Mark;
+   
+   END Proc_Stored_Test;
+ 
+
+
+
+ CREATE OR REPLACE PROCEDURE Test1(VTEST IN NUMBER) IS
+     NAME VARCHAR2(20);
+     BEGIN
+      SELECT 'x' INTO NAME FROM dual;
+     END;
+
+   EXECUTE Test1(1);
+
+    
+
+/* The following code is ok */
+   BEGIN
+     Test1(1);
+   END;
+
+create or replace procedure temp_proc is
+    begin
+    DBMS_OUTPUT.PUT_LINE('Test');
+    end;
+
+    BEGIN
+     temp_proc;
+    END;
+
+
+
+  CREATE OR REPLACE PROCEDURE Proc_Stored_Test
+   (X IN NUMBER, Y OUT NUMBER)
+   AS  
+   BEGIN
+   SELECT Mark INTO Y FROM Stored_Test  WHERE X > Stored_Test.Mark;
+   
+   END Proc_Stored_Test;
+   
+   EXECUTE 
+begin
+ Proc_Stored_Test(2);
+end;
+
+
+/* Stored Procedure */
+
+  CREATE OR REPLACE PROCEDURE Proc_Stored_Test
+   (X IN NUMBER, Y OUT NUMBER)
+   AS  
+   BEGIN
+   SELECT Mark INTO Y FROM Stored_Test  WHERE X > Stored_Test.Mark;
+   DBMS_OUTPUT.PUT_LINE(Y);
+   END Proc_Stored_Test;
+
+

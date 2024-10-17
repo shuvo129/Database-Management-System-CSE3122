@@ -1,0 +1,500 @@
+
+
+                       Cross Joining Table
+
+drop table TABLE1 ;
+create table TABLE1 (
+       row_ varchar (8),
+       remarks varchar (8) 
+       );     
+insert into TABLE1 values ('row 1' , 'table 1');
+insert into TABLE1 values ('row 2' , 'table 1');
+
+drop table TABLE2 ;
+create table TABLE2 (
+       row_ varchar (8),
+       remarks varchar (8) 
+       );     
+insert into TABLE2 values ('row 1' , 'table 2');
+insert into TABLE2 values ('row 2' , 'table 2');
+insert into TABLE2 values ('row 3' , 'table 2');
+
+INPUT:
+      select *
+      from table1,table2; 
+
+ROW_     REMARKS  ROW_     REMARKS
+-------- -------- -------- --------
+row 1    table 1  row 1    table 2
+row 2    table 1  row 1    table 2
+row 1    table 1  row 2    table 2
+row 2    table 1  row 2    table 2
+row 1    table 1  row 3    table 2
+row 2    table 1  row 3    table 2
+6 rows selected
+
+
+
+
+
+drop table CUSTOMER ;
+create table CUSTOMER (
+       name varchar (15),
+       address varchar (15),
+       state varchar (5),
+       zip varchar (5),
+       phone varchar (10),
+       remarks varchar (15) 
+       );   
+insert into CUSTOMER values 
+       ('TRUE WHEEL','550 HYSKER','NE','58702','555-4545','NONE');
+insert into CUSTOMER values 
+       ('BIKE SPEC','CPT SHRIVE','LA','45678','555-1234','NONE');
+insert into CUSTOMER values 
+       ('LE SHOPPE','HOMETOWN','KS','54678','555-1278','NONE');
+insert into CUSTOMER values 
+       ('AAA BIKE','10 OLDTOWN','NE','56784','555-3421','JOHN-MGR');
+insert into CUSTOMER values 
+       ('JACKS BIKE','24 EGLIN','FL','34567','555-2314','NONE');
+
+INPUT:
+     select *
+     from CUSTOMER;
+	 
+NAME            ADDRESS         STATE ZIP   PHONE      REMARKS
+--------------- --------------- ----- ----- ---------- ---------------
+TRUE WHEEL      550 HYSKER      NE    58702 555-4545   NONE
+BIKE SPEC       CPT SHRIVE      LA    45678 555-1234   NONE
+LE SHOPPE       HOMETOWN        KS    54678 555-1278   NONE
+AAA BIKE        10 OLDTOWN      NE    56784 555-3421   JOHN-MGR
+JACKS BIKE      24 EGLIN        FL    34567 555-2314   NONE
+	   
+	   
+	   	   
+drop table PARTS ;
+create table PARTS (
+       partnum int,
+       discription varchar (20),
+       price numeric(10,2)
+       );  
+insert into PARTS values 
+       (54,'PEDALS',54.25);
+insert into PARTS values 
+       (42,'SEATS',24.50);
+insert into PARTS values 
+       (46,'TIRES',15.25);
+insert into PARTS values 
+       (23,'MOUNTAIN BIKE',350.45);
+insert into PARTS values 
+       (76,'ROAD BIKE',530.00);
+insert into PARTS values 
+       (10,'TANDEM',1200.00);
+INPUT:
+     select *
+     from PARTS;
+	   
+   PARTNUM DISCRIPTION               PRICE
+---------- -------------------- ----------
+        54 PEDALS                    54.25
+        42 SEATS                      24.5
+        46 TIRES                     15.25
+        23 MOUNTAIN BIKE            350.45
+        76 ROAD BIKE                   530
+        10 TANDEM                     1200
+
+6 rows selected.	   
+	   
+
+//orderedon varchar(11),	   
+drop table ORDERS ;
+create table ORDERS (
+       orderedon date , 
+       name varchar(20), 
+       partnum int,
+       quantity int ,
+       remarks varchar(15) 
+       );  
+insert into ORDERS values 
+       ('15-MAY-1996','TRUE WHEEL',23,6,'PAID');
+insert into ORDERS values 
+       ('19-MAY-1996','TRUE WHEEL',76,3,'PAID');
+insert into ORDERS values 
+       ('2-SEP-1996','TRUE WHEEL',10,1,'PAID');
+insert into ORDERS values 
+       ('30-JUN-1996','TRUE WHEEL',42,8,'PAID');
+insert into ORDERS values 
+       ('30-JUN-1996','BIKE SPEC',54,10,'PAID');
+insert into ORDERS values 
+       ('30-MAY-1996','BIKE SPEC',10,2,'PAID');
+insert into ORDERS values 
+       ('30-MAY-1996','BIKE SPEC',23,8,'PAID');
+insert into ORDERS values 
+       ('17-JAN-1996','BIKE SPEC',76,11,'PAID');
+insert into ORDERS values 
+       ('17-JAN-1996','LE SHOPPE',76,5,'PAID');
+insert into ORDERS values 
+       ('1-JUN-1996','LE SHOPPE',10,3,'PAID');
+insert into ORDERS values 
+       ('1-JUN-1996','AAA BIKE',10,1,'PAID');
+insert into ORDERS values 
+       ('1-JUL-1996','AAA BIKE',76,4,'PAID');
+insert into ORDERS values 
+       ('1-JUL-1996','AAA BIKE',46,14,'PAID');
+insert into ORDERS values 
+       ('11-JUL-1996','JACKS BIKE',76,14,'PAID');
+
+INPUT:
+     select *
+     from ORDERS;
+
+ORDEREDON   NAME                    PARTNUM   QUANTITY REMARKS
+----------- -------------------- ---------- ---------- ---------------
+15-MAY-1996 TRUE WHEEL                   23          6 PAID
+19-MAY-1996 TRUE WHEEL                   76          3 PAID
+2-SEP-1996  TRUE WHEEL                   10          1 PAID
+30-JUN-1996 TRUE WHEEL                   42          8 PAID
+30-JUN-1996 BIKE SPEC                    54         10 PAID
+30-MAY-1996 BIKE SPEC                    10          2 PAID
+30-MAY-1996 BIKE SPEC                    23          8 PAID
+17-JAN-1996 BIKE SPEC                    76         11 PAID
+17-JAN-1996 LE SHOPPE                    76          5 PAID
+1-JUN-1996  LE SHOPPE                    10          3 PAID
+1-JUN-1996  AAA BIKE                     10          1 PAID
+1-JUL-1996  AAA BIKE                     76          4 PAID
+1-JUL-1996  AAA BIKE                     46         14 PAID
+11-JUL-1996 JACKS BIKE                   76         14 PAID
+
+14 rows selected.
+
+
+INPUT:
+      select O.ORDEREDON,O.NAME,O.PARTNUM,
+             P.PARTNUM,P.DISCRIPTION 
+      from   ORDERS O,PARTS P; 
+
+ORDEREDON   NAME                    PARTNUM    PARTNUM DISCRIPTION
+----------- -------------------- ---------- ---------- --------------------
+15-MAY-1996 TRUE WHEEL                   23         54 PEDALS
+19-MAY-1996 TRUE WHEEL                   76         54 PEDALS
+2-SEP-1996  TRUE WHEEL                   10         54 PEDALS
+30-JUN-1996 TRUE WHEEL                   42         54 PEDALS
+30-JUN-1996 BIKE SPEC                    54         54 PEDALS**********
+30-MAY-1996 BIKE SPEC                    10         54 PEDALS
+30-MAY-1996 BIKE SPEC                    23         54 PEDALS
+17-JAN-1996 BIKE SPEC                    76         54 PEDALS
+17-JAN-1996 LE SHOPPE                    76         54 PEDALS
+1-JUN-1996  LE SHOPPE                    10         54 PEDALS
+1-JUN-1996  AAA BIKE                     10         54 PEDALS
+1-JUL-1996  AAA BIKE                     76         54 PEDALS
+1-JUL-1996  AAA BIKE                     46         54 PEDALS
+11-JUL-1996 JACKS BIKE                   76         54 PEDALS
+
+15-MAY-1996 TRUE WHEEL                   23         42 SEATS
+19-MAY-1996 TRUE WHEEL                   76         42 SEATS
+2-SEP-1996  TRUE WHEEL                   10         42 SEATS
+30-JUN-1996 TRUE WHEEL                   42         42 SEATS**********
+30-JUN-1996 BIKE SPEC                    54         42 SEATS
+30-MAY-1996 BIKE SPEC                    10         42 SEATS
+30-MAY-1996 BIKE SPEC                    23         42 SEATS
+17-JAN-1996 BIKE SPEC                    76         42 SEATS
+17-JAN-1996 LE SHOPPE                    76         42 SEATS
+1-JUN-1996  LE SHOPPE                    10         42 SEATS
+1-JUN-1996  AAA BIKE                     10         42 SEATS
+1-JUL-1996  AAA BIKE                     76         42 SEATS
+1-JUL-1996  AAA BIKE                     46         42 SEATS
+11-JUL-1996 JACKS BIKE                   76         42 SEATS
+
+15-MAY-1996 TRUE WHEEL                   23         46 TIRES
+19-MAY-1996 TRUE WHEEL                   76         46 TIRES
+2-SEP-1996  TRUE WHEEL                   10         46 TIRES
+30-JUN-1996 TRUE WHEEL                   42         46 TIRES
+30-JUN-1996 BIKE SPEC                    54         46 TIRES
+30-MAY-1996 BIKE SPEC                    10         46 TIRES
+30-MAY-1996 BIKE SPEC                    23         46 TIRES
+17-JAN-1996 BIKE SPEC                    76         46 TIRES
+17-JAN-1996 LE SHOPPE                    76         46 TIRES
+1-JUN-1996  LE SHOPPE                    10         46 TIRES
+1-JUN-1996  AAA BIKE                     10         46 TIRES
+1-JUL-1996  AAA BIKE                     76         46 TIRES
+1-JUL-1996  AAA BIKE                     46         46 TIRES**********
+11-JUL-1996 JACKS BIKE                   76         46 TIRES
+
+15-MAY-1996 TRUE WHEEL                   23         23 MOUNTAIN BIKE**********
+19-MAY-1996 TRUE WHEEL                   76         23 MOUNTAIN BIKE
+2-SEP-1996  TRUE WHEEL                   10         23 MOUNTAIN BIKE
+30-JUN-1996 TRUE WHEEL                   42         23 MOUNTAIN BIKE
+30-JUN-1996 BIKE SPEC                    54         23 MOUNTAIN BIKE
+30-MAY-1996 BIKE SPEC                    10         23 MOUNTAIN BIKE
+30-MAY-1996 BIKE SPEC                    23         23 MOUNTAIN BIKE**********
+17-JAN-1996 BIKE SPEC                    76         23 MOUNTAIN BIKE
+17-JAN-1996 LE SHOPPE                    76         23 MOUNTAIN BIKE
+1-JUN-1996  LE SHOPPE                    10         23 MOUNTAIN BIKE
+1-JUN-1996  AAA BIKE                     10         23 MOUNTAIN BIKE
+1-JUL-1996  AAA BIKE                     76         23 MOUNTAIN BIKE
+1-JUL-1996  AAA BIKE                     46         23 MOUNTAIN BIKE
+11-JUL-1996 JACKS BIKE                   76         23 MOUNTAIN BIKE
+
+15-MAY-1996 TRUE WHEEL                   23         76 ROAD BIKE
+19-MAY-1996 TRUE WHEEL                   76         76 ROAD BIKE**********
+2-SEP-1996  TRUE WHEEL                   10         76 ROAD BIKE
+30-JUN-1996 TRUE WHEEL                   42         76 ROAD BIKE
+30-JUN-1996 BIKE SPEC                    54         76 ROAD BIKE
+30-MAY-1996 BIKE SPEC                    10         76 ROAD BIKE
+30-MAY-1996 BIKE SPEC                    23         76 ROAD BIKE
+17-JAN-1996 BIKE SPEC                    76         76 ROAD BIKE**********
+17-JAN-1996 LE SHOPPE                    76         76 ROAD BIKE**********
+1-JUN-1996  LE SHOPPE                    10         76 ROAD BIKE
+1-JUN-1996  AAA BIKE                     10         76 ROAD BIKE
+1-JUL-1996  AAA BIKE                     76         76 ROAD BIKE**********
+1-JUL-1996  AAA BIKE                     46         76 ROAD BIKE
+11-JUL-1996 JACKS BIKE                   76         76 ROAD BIKE**********
+
+15-MAY-1996 TRUE WHEEL                   23         10 TANDEM
+19-MAY-1996 TRUE WHEEL                   76         10 TANDEM
+2-SEP-1996  TRUE WHEEL                   10         10 TANDEM**********
+30-JUN-1996 TRUE WHEEL                   42         10 TANDEM
+30-JUN-1996 BIKE SPEC                    54         10 TANDEM
+30-MAY-1996 BIKE SPEC                    10         10 TANDEM**********
+30-MAY-1996 BIKE SPEC                    23         10 TANDEM
+17-JAN-1996 BIKE SPEC                    76         10 TANDEM
+17-JAN-1996 LE SHOPPE                    76         10 TANDEM
+1-JUN-1996  LE SHOPPE                    10         10 TANDEM**********
+1-JUN-1996  AAA BIKE                     10         10 TANDEM**********
+1-JUL-1996  AAA BIKE                     76         10 TANDEM
+1-JUL-1996  AAA BIKE                     46         10 TANDEM
+11-JUL-1996 JACKS BIKE                   76         10 TANDEM
+
+84 rows selected.
+
+
+                               Joining Table Base on Euality  
+
+
+
+customer(name ,address ,state ,zip ,phone ,remarks)
+parts(partnum ,discription ,price)
+order(orderedon ,name ,partnum ,quantity ,remarks )    
+
+
+INPUT:
+      select O.ORDEREDON,O.NAME,O.PARTNUM,P.PARTNUM,P.DISCRIPTION 
+      from  ORDERS O,PARTS P
+      where O.PARTNUM = P.PARTNUM; 
+
+	  ORDEREDON   NAME                    PARTNUM    PARTNUM DISCRIPTION
+----------- -------------------- ---------- ---------- --------------------
+2-SEP-1996  TRUE WHEEL                   10         10 TANDEM
+30-MAY-1996 BIKE SPEC                    10         10 TANDEM
+1-JUN-1996  LE SHOPPE                    10         10 TANDEM
+1-JUN-1996  AAA BIKE                     10         10 TANDEM
+15-MAY-1996 TRUE WHEEL                   23         23 MOUNTAIN BIKE
+30-MAY-1996 BIKE SPEC                    23         23 MOUNTAIN BIKE
+30-JUN-1996 TRUE WHEEL                   42         42 SEATS
+1-JUL-1996  AAA BIKE                     46         46 TIRES
+30-JUN-1996 BIKE SPEC                    54         54 PEDALS
+19-MAY-1996 TRUE WHEEL                   76         76 ROAD BIKE
+1-JUL-1996  AAA BIKE                     76         76 ROAD BIKE
+11-JUL-1996 JACKS BIKE                   76         76 ROAD BIKE
+17-JAN-1996 BIKE SPEC                    76         76 ROAD BIKE
+17-JAN-1996 LE SHOPPE                    76         76 ROAD BIKE
+14 rows selected.
+
+
+
+INPUT:
+      select O.ORDEREDON,O.NAME,O.PARTNUM,P.PARTNUM,P.DISCRIPTION 
+      from  ORDERS O,PARTS P
+      where O.PARTNUM = P.PARTNUM and O.PARTNUM = 76;
+
+ORDEREDON   NAME                    PARTNUM    PARTNUM DISCRIPTION
+----------- -------------------- ---------- ---------- --------------------
+19-MAY-1996 TRUE WHEEL                   76         76 ROAD BIKE
+17-JAN-1996 BIKE SPEC                    76         76 ROAD BIKE
+17-JAN-1996 LE SHOPPE                    76         76 ROAD BIKE
+1-JUL-1996  AAA BIKE                     76         76 ROAD BIKE
+11-JUL-1996 JACKS BIKE                   76         76 ROAD BIKE
+
+
+INPUT:
+      select O.ORDEREDON,O.NAME,O.PARTNUM,P.PARTNUM,P.DISCRIPTION 
+      from  ORDERS O,PARTS P
+      where O.PARTNUM = P.PARTNUM and P.DISCRIPTION = 'ROAD BIKE';
+
+ORDEREDON   NAME                    PARTNUM    PARTNUM DISCRIPTION
+----------- -------------------- ---------- ---------- --------------------
+19-MAY-1996 TRUE WHEEL                   76         76 ROAD BIKE
+1-JUL-1996  AAA BIKE                     76         76 ROAD BIKE
+11-JUL-1996 JACKS BIKE                   76         76 ROAD BIKE
+17-JAN-1996 BIKE SPEC                    76         76 ROAD BIKE
+17-JAN-1996 LE SHOPPE                    76         76 ROAD BIKE
+
+
+INPUT:
+      select sum(O.QUANTITY * P.PRICE) TOTAL 
+      from  ORDERS O,PARTS P
+      where O.PARTNUM = P.PARTNUM and p.DISCRIPTION = 'ROAD BIKE' ;
+
+            
+     TOTAL
+----------
+     19610
+
+
+INPUT:
+      select c.NAME,c.address ,(o.quantity*p.price) total
+      from  ORDERS O,PARTS P,Customer c 
+      where o.partnum = p.partnum and o.name = c.name;
+
+NAME            ADDRESS              TOTAL
+--------------- --------------- ----------
+AAA BIKE        10 OLDTOWN            1200
+BIKE SPEC       CPT SHRIVE            2400
+TRUE WHEEL      550 HYSKER            1200
+LE SHOPPE       HOMETOWN              3600
+BIKE SPEC       CPT SHRIVE          2803.6
+TRUE WHEEL      550 HYSKER          2102.7
+TRUE WHEEL      550 HYSKER             196
+AAA BIKE        10 OLDTOWN           213.5
+BIKE SPEC       CPT SHRIVE           542.5
+AAA BIKE        10 OLDTOWN            2120
+JACKS BIKE      24 EGLIN              7420
+TRUE WHEEL      550 HYSKER            1590
+LE SHOPPE       HOMETOWN              2650
+BIKE SPEC       CPT SHRIVE            5830
+
+14 rows selected.
+
+
+
+INPUT:
+      select c.NAME,c.address ,(o.quantity*p.price) total
+      from  ORDERS O,PARTS P,Customer c 
+      where o.partnum = p.partnum and o.name = c.name
+      order by c.name ;
+
+
+NAME            ADDRESS              TOTAL
+--------------- --------------- ----------
+AAA BIKE        10 OLDTOWN            1200
+AAA BIKE        10 OLDTOWN           213.5
+AAA BIKE        10 OLDTOWN            2120
+BIKE SPEC       CPT SHRIVE            2400
+BIKE SPEC       CPT SHRIVE            5830
+BIKE SPEC       CPT SHRIVE           542.5
+BIKE SPEC       CPT SHRIVE          2803.6
+JACKS BIKE      24 EGLIN              7420
+LE SHOPPE       HOMETOWN              3600
+LE SHOPPE       HOMETOWN              2650
+TRUE WHEEL      550 HYSKER            1200
+TRUE WHEEL      550 HYSKER            1590
+TRUE WHEEL      550 HYSKER          2102.7
+TRUE WHEEL      550 HYSKER             196
+
+14 rows selected.
+
+
+
+
+
+                               Joining Table Base on Noneuality  
+
+
+INPUT:
+      select o.NAME,o.partnum,p.partnum
+      from  ORDERS O,PARTS P
+      where o.partnum > p.partnum ;
+
+
+NAME                    PARTNUM    PARTNUM
+-------------------- ---------- ----------
+TRUE WHEEL                   76         54
+BIKE SPEC                    76         54
+LE SHOPPE                    76         54
+AAA BIKE                     76         54
+JACKS BIKE                   76         54
+TRUE WHEEL                   76         42
+BIKE SPEC                    54         42
+BIKE SPEC                    76         42
+LE SHOPPE                    76         42
+AAA BIKE                     76         42
+AAA BIKE                     46         42
+
+...                         ...                
+...                         ...
+...                         ...
+
+
+
+
+
+Inner Join : when the rows of the tables are combined with each other, producing 
+             a number of new rows equal to the product  of the number of rows in 
+             each table. 
+
+
+
+
+                      *** PARTS  ***
+	   
+   PARTNUM DISCRIPTION               PRICE
+---------- -------------------- ----------
+        54 PEDALS                    54.25
+        42 SEATS                      24.5
+        46 TIRES                     15.25
+        23 MOUNTAIN BIKE            350.45
+        76 ROAD BIKE                   530
+        10 TANDEM                     1200
+
+6 rows selected.	   
+
+                      *** ORDERS  ***
+
+ORDEREDON   NAME                    PARTNUM   QUANTITY REMARKS
+----------- -------------------- ---------- ---------- ---------------
+15-MAY-1996 TRUE WHEEL                   23          6 PAID
+19-MAY-1996 TRUE WHEEL                   76          3 PAID
+2-SEP-1996  TRUE WHEEL                   10          1 PAID
+30-JUN-1996 TRUE WHEEL                   42          8 PAID
+30-JUN-1996 BIKE SPEC                    54         10 PAID
+30-MAY-1996 BIKE SPEC                    10          2 PAID
+30-MAY-1996 BIKE SPEC                    23          8 PAID
+17-JAN-1996 BIKE SPEC                    76         11 PAID
+17-JAN-1996 LE SHOPPE                    76          5 PAID
+1-JUN-1996  LE SHOPPE                    10          3 PAID
+1-JUN-1996  AAA BIKE                     10          1 PAID
+1-JUL-1996  AAA BIKE                     76          4 PAID
+1-JUL-1996  AAA BIKE                     46         14 PAID
+11-JUL-1996 JACKS BIKE                   76         14 PAID
+
+14 rows selected.
+
+
+
+
+
+
+
+OUTERR JOIN Vs INNER JOIN
+JOIN ON
+
+
+
+select * from parts ;
+select * from orders ;
+
+
+select p.PARTNUM , p.DISCRIPTION , p.PRICE , o.NAME , o.PARTNUM                 
+from parts p
+right outer JOIN orders o ON orders.PARTNUM = 54 ;
+
+
+
+
+
+
+
+
+
+
+
+

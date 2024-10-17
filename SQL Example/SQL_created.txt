@@ -1,0 +1,6 @@
+grant ALTER,DELETE,INSERT,UPDATE,SELECT on "STUDENT1" to student1 with grant option
+
+
+grant ALTER,DELETE,INSERT,UPDATE,SELECT on "student_mark" to student1 with grant option
+
+revoke ALL on "student_mark" from STUDENT1

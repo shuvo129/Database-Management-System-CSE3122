@@ -1,0 +1,26 @@
+ SELECT * FROM Stored_Test2;
+
+ SELECT * FROM Stored_Test
+   WHERE Name LIKE 'ab%';
+
+ SELECT * FROM Stored_Test
+   WHERE Story IN ('A+','C');
+
+ ALTER TABLE Stored_Test2 
+   ADD PRIMARY KEY(ID);
+
+ CREATE INDEX Stored_Test2_Index ON Stored_Test2(Name)
+   INDEXTYPE IS CTXSYS.CONTEXT;
+
+ SELECT * FROM Stored_Test2
+   WHERE CONTAINS (Name,'abc')>0;
+
+
+ SELECT * FROM Stored_Test2
+   WHERE CONTAINS (Name,'a%')>0;
+  
+  SELECT * FROM Stored_Test2
+   WHERE CONTAINS (Name,'a_')>0;
+
+  SELECT * FROM Stored_Test2
+   WHERE CONTAINS (Name,'a__')>0;

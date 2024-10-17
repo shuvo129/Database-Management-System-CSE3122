@@ -1,0 +1,194 @@
+SELECT * FROM TAB;
+
+CREATE TABLE Stored_Test 
+      AS  SELECT * FROM SQT;
+
+Desc Stored_Test;
+DESCRIBE Stored_Test;
+
+CREATE TABLE Stored_Test_XY 
+      AS  SELECT X,Y FROM SQT;
+
+Desc Stored_Test_XY;
+
+DESC MARKS;
+SELECT * FROM TAB;
+
+CREATE TABLE Stored_Test 
+      AS  SELECT * FROM SQT;
+
+Desc Stored_Test;
+DESCRIBE Stored_Test;
+
+CREATE TABLE Stored_Test_XY 
+      AS  SELECT X,Y FROM SQT;
+
+Desc Stored_Test_XY;
+
+DESC MARKS;
+DROP TABLE MARKS;
+
+SELECT * FROM TAB;
+DESC student_mark; /* ?? */
+
+DESC Stored_Test_XY;
+SELECT * FROM Stored_Test_XY;
+ALTER TABLE Stored_Test_XY 
+    ADD (GP NUMBER(8));
+
+ALTER TABLE Stored_Test_XY 
+   MODIFY (GP VARCHAR2(5));
+
+RENAME Stored_Test_XY TO Stored_Test_XYGP;
+
+UPDATE Stored_Test_XYGP 
+  SET GP='A'
+  WHERE Y>70;
+ 
+UPDATE Stored_Test_XYGP 
+  SET GP='B'
+  WHERE Y<=70 AND Y>50;
+
+UPDATE Stored_Test_XYGP 
+  SET GP='C'
+  WHERE Y<=50;
+
+SELECT * FROM Stored_Test_XYGP ;
+
+DELETE FROM Stored_Test_XYGP WHERE Y=78;
+
+CREATE TABLE Stored_Test_XYGPZ
+  AS SELECT * FROM Stored_Test_XYGP;
+
+ALTER TABLE Stored_Test_XYGPZ
+  ADD (Z NUMBER(10));
+
+SELECT * FROM Stored_Test_XYGPZ;
+SELECT * FROM Stored_Test;
+
+/* Wrong ! Multiple return for sub query 
+UPDATE Stored_Test_XYGPZ
+      SET Stored_Test_XYGPZ.Z= (SELECT Stored_Test.X, Stored_Test.Z, Stored_Test_XYGPZ.X, Stored_Test_XYGPZ.Z
+           FROM Stored_Test,Stored_Test_XYGPZ
+           WHERE Stored_Test_XYGPZ.X=Stored_Test.X); */
+
+/* "STORED_TEST"."Z": invalid identifier 
+UPDATE  Stored_Test_XYGPZ
+   SET  Stored_Test_XYGPZ.Z= Stored_Test.Z
+   WHERE Stored_Test_XYGPZ.X =  Stored_Test.X; */
+
+
+ SELECT Stored_Test.X FROM Stored_Test;
+ SELECT Stored_Test_XYGPZ.X FROM Stored_Test_XYGPZ;
+
+DELETE FROM Stored_Test WHERE Y=78;
+/* column contains NULL values; cannot alter to NOT NULL
+ALTER TABLE Stored_Test_XYGPZ 
+  ADD PRIMARY KEY (Z); */
+
+SELECT GP FROM Stored_Test_XYGP
+  WHERE CONTAINS(GP, 'A')>0;
+
+
+  CREATE TABLE Stored_Test2
+   AS SELECT * FROM Stored_Test;
+
+
+DROP TABLE Stored_Test; 
+
+  CREATE TABLE Stored_Test
+  (
+  ID NUMBER(6) PRIMARY KEY,
+  Mark NUMBER(8),
+  Name VARCHAR2(10),
+  Story VARCHAR2(10)
+  );
+
+  INSERT INTO Stored_Test
+    VALUES(10,71,'pqr','B');
+
+  SELECT * FROM Stored_Test;
+
+   CREATE TABLE Stored_Test2
+   AS SELECT * FROM Stored_Test;
+ 
+   CREATE TABLE Stored_Test3
+   AS SELECT * FROM Stored_Test;
+
+   AlTER TABLE Stored_Test3
+      ADD (Z NUMBER(8));
+   
+  SELECT * FROM Stored_Test3;
+  SELECT * FROM Stored_Test;
+
+  UPDATE  Stored_Test3
+   SET  Stored_Test3.Z= Stored_Test.ID
+   WHERE Stored_Test.ID =  Stored_Test3.ID;
+
+
+  CREATE TABLE Stored_Test_Loop_Update
+   AS SELECT * FROM Stored_Test3;
+
+  UPDATE Stored_Test_Loop_Update
+    SET Z=10;
+
+   SELECT * FROM Stored_Test_Loop_Update;
+
+
+/* PL/SQL Example */
+
+  DECLARE
+     n INT:=0;
+  
+  BEGIN
+     FOR n IN 1..10 LOOP
+        UPDATE Stored_Test_Loop_Update
+          SET Z=n
+          WHERE ID=n;
+        END LOOP;
+  END;
+
+
+/* PL/SQL Example */
+
+  DECLARE
+     n INT:=0;
+     m INT:=1;
+  
+  BEGIN
+     FOR n IN 1..10 LOOP
+        UPDATE Stored_Test_Loop_Update
+          SET Z=m
+          WHERE ID=n;
+          m:=m+1;
+        END LOOP;
+  END;
+  SELECT * FROM Stored_Test_Loop_Update;
+
+
+SELECT * FROM Stored_Test_Loop_Update;
+  SELECT * FROM Stored_Test2;
+  
+  /* single-row subquery returns more than one row
+      UPDATE Stored_Test_Loop_Update
+      SET Stored_Test_Loop_Update.Z= (SELECT Stored_Test2.ID
+           FROM Stored_Test2, Stored_Test_Loop_Update
+           WHERE Stored_Test2.ID=Stored_Test_Loop_Update.ID); */
+
+
+
+
+     SELECT * FROM TAB;
+
+ 
+  SELECT * FROM Stored_Test_Loop_Update;
+
+  CREATE SEQUENCE Seq_Test
+  INCREMENT BY 1
+  MINVALUE 1
+  MAXVALUE 100
+  CYCLE;
+
+  SELECT * FROM USER_SEQUENCES;
+
+

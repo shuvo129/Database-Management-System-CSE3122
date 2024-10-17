@@ -1,0 +1,216 @@
+CREATE USER cse3rdB IDENTIFIED BY cse123;
+
+ALTER USER cse3rdB IDENTIFIED BY cse2013;
+
+GRANT DBA TO cse3rdB;
+
+CREATE TABLE Marks
+(
+Roll VARCHAR2(10),
+Marks NUMBER (2)
+);
+
+DESCRIBE Marks;
+CREATE USER cse3rdB IDENTIFIED BY cse123;
+
+ALTER USER cse3rdB IDENTIFIED BY cse2013;
+
+GRANT DBA TO cse3rdB;
+
+CREATE TABLE Marks
+(
+Roll VARCHAR2(10),
+Marks NUMBER (2)
+);
+
+DESCRIBE Marks;
+
+ALTER TABLE Marks
+MODIFY (Marks NUMBER(8));
+
+INSERT INTO Marks
+VALUES('101',10);
+
+SELECT * FROM Marks;
+
+CREATE TABLE Grade
+(
+Roll VARCHAR2(10),
+GP NUMBER (8,2)
+);
+
+DESCRIBE Grade;
+
+INSERT INTO Grade
+VALUES('101',3.4);
+
+SELECT * FROM Grade;
+
+ALTER TABLE Marks
+ADD PRIMARY KEY(Roll);
+ALTER TABLE Grade
+ADD PRIMARY KEY(Roll);
+
+CREATE TRIGGER Trigger_Test
+AFTER INSERT ON Marks
+FOR EACH ROW
+
+BEGIN
+INSERT INTO Grade
+VALUES('000',0.0);
+END;
+
+CREATE TRIGGER Trigger_Test_Before
+BEFORE INSERT ON Marks
+FOR EACH ROW
+
+BEGIN
+INSERT INTO Grade
+VALUES('001',0.0);
+END;
+
+INSERT INTO Marks
+VALUES('102',200);
+
+SELECT * FROM Marks;
+
+REATE OR REPLACE TRIGGER Trigger_Test_After
+AFTER INSERT ON Marks
+FOR EACH ROW
+
+BEGIN
+INSERT INTO Grade
+VALUES('104',0.0);
+END;
+
+INSERT INTO Marks
+VALUES('110',4);
+
+DROP TRIGGER Trigger_Test;
+
+SELECT * FROM Grade;
+
+
+SELECT * FROM Grade;
+
+INSERT INTO Marks
+VALUES('104',20);
+
+SELECT * FROM Marks;
+
+
+  
+CREATE OR REPLACE TRIGGER Trigger_Test_Variable
+AFTER INSERT ON Marks
+FOR EACH ROW
+ 
+DECLARE
+ Temp1 VARCHAR2(20);
+ Temp2 NUMBER(10,2);
+
+BEGIN
+   
+  Temp1:=:new.Roll;
+  Temp2:=:new.Marks; 
+  /*
+  INSERT INTO Grade
+     VALUES(:new.Roll,:new.Marks);
+  */
+
+  INSERT INTO Grade
+     VALUES(Temp1, Temp2);
+   
+END;
+
+INSERT INTO Marks
+VALUES('115',4);
+
+DROP TRIGGER Trigger_Test_After;
+
+SELECT * FROM Grade;
+
+
+
+
+CREATE OR REPLACE TRIGGER Trigger_Variable_Condition
+AFTER INSERT ON Marks
+FOR EACH ROW
+ 
+DECLARE
+ Temp1 VARCHAR2(20);
+ Temp2 NUMBER(10,2);
+
+BEGIN
+   
+  Temp1:=:new.Roll;
+  Temp2:=:new.Marks; 
+
+  /*
+  INSERT INTO Grade
+     VALUES(:new.Roll,:new.Marks);
+  */
+  IF Temp2>10 THEN
+     Temp2:=Temp2+10;
+  ELSE
+     Temp2:=Temp2+20;
+  END IF;
+
+  INSERT INTO Grade
+     VALUES(Temp1, Temp2);
+   
+END;
+
+INSERT INTO Marks
+VALUES('120',5);
+
+DROP TRIGGER Trigger_Variable_if;
+
+SELECT * FROM Grade;
+
+
+/* Sub Query Test */
+
+CREATE TABLE SQT
+(
+X NUMBER (10),
+Y NUMBER (10)
+);
+
+DROP TABLE Marks2;
+
+DESCRIBE SQT;
+
+INSERT INTO SQT
+  VALUES(15,78);
+
+
+SELECT * FROM SQT;
+
+SELECT * FROM SQT
+  ORDER BY Y;
+
+SELECT * FROM SQT
+  ORDER BY X;
+
+SELECT X, AVG(Y) FROM SQT
+  GROUP BY X
+  ORDER BY X;
+
+SELECT X,Y FROM SQT
+  WHERE X> (SELECT AVG(X) FROM SQT);
+
+SELECT MAX(X) FROM SQT;
+
+ALTER TABLE SQT
+ ADD Z NUMBER(10,2);
+
+SELECT * FROM SQT;
+UPDATE SQT
+  SET z=14
+  WHERE X=15 AND Y=78;
+
+SELECT * FROM SQT;
+SELECT X, MAX(Y) FROM SQT GROUP BY X;
+
+SELECT X,Y,Z FROM SQT
+  WHERE (X,Y) IN (SELECT X, MAX(Y) FROM SQT GROUP BY X);

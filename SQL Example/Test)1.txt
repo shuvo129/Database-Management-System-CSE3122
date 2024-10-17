@@ -1,0 +1,31 @@
+SQL> create table student(
+  2  st_name varchar2(20),
+  3  st_roll number(8,0) primary key,
+  4  st_year number(1,0));
+
+
+ create table result(
+ st_roll number(8,0) primary key,
+ s_marks number(2,0));
+
+
+insert into student values('A', 5401,2);
+SQL> select * from student, student, re
+select * from student, student, result
+
+
+SQL> select * from st as student;
+select * from st as student
+
+SQL> select * from student, student as st, result;
+select * from student, student as st, result
+                               *
+ERROR at line 1:
+
+select student.st_name from student;
+
+select student.st_name from student;
+
+select student.st_name from student;
+
+ select student.st_name, student.st_roll from student, result;

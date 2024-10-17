@@ -1,0 +1,1180 @@
+	   
+
+	   
+	   
+                         Aggregate Funtion
+
+
+drop table tempstats ;
+create table tempstats (
+        name varchar(10),
+        pos  varchar(3),
+	ab    numeric(3),
+	hits  numeric(4),
+	walks    varchar(5),
+	singles  varchar(7),
+	doubles  varchar(7),
+	triples  varchar(7),
+	hr       numeric(2),
+	so       varchar(2)
+       );
+
+insert into  tempstats
+       values('JONES','1B',145,45,'34','31','8','1',5,'10');
+insert into  tempstats
+       values('DONKNOW','3B',75,65,'23','50','10','1',4,'15');
+insert into  tempstats
+       values('WORLEY','LF',157,49,'15','35','8','3',3,'16');	   
+insert into  tempstats
+       values('DAVID','OF',187,70,'24','48','4','0',17,'42');	   
+insert into  tempstats
+       values('HAMHOCKER','3B',50,12,'10','10','2', '0',0,'13');
+insert into  tempstats
+       values('CASEY','DH',1,0,'0','0','0','0',0,'1');	   
+
+
+						 
+INPUT:
+    select *
+    from tempstats;	
+	  
+NAME       POS         AB    HITS   WALKS SINGLES DOUBLES TRIPLES  HR   SO
+---------- --- ---------- -------   ----- ------- ------- ------- ----  --
+JONES      1B         145      45   34    31      8       1         5   10
+DONKNOW    3B         175      65   23    50      10      1         4   15
+WORLEY     LF         157      49   15    35      8       3         3   16
+DAVID      OF         187      70   24    48      4       0        17   42
+HAMHOCKER  3B          50      12   10    10      2       0         0   13
+CASEY      DH           1       0   0     0       0       0         0   1
+6 rows selected.	   
+	   
+
+                                COUNT
+         
+INPUT:	   
+    select  count(*)   
+    from tempstats;	
+
+COUNT(*)
+----------
+     6
+
+INPUT:	   
+    select  count(*)   
+    from tempstats
+    where hits/ab < 0.350;
+
+COUNT(*)
+----------
+      4
+	  
+INPUT:	
+    select  count(*)  "NUM_BELOW_350"
+    from tempstats
+    where hits/ab < 0.350;	
+
+NUM_BELOW_350
+-------------
+      4
+
+                               SUM
+
+INPUT:	
+    select  sum(singles) total_singles
+    from tempstats;
+or  select  sum(singles) "TOTAL_SINGLES"
+    from tempstats;
+
+TOTAL_SINGLES
+-------------
+    174
+
+INPUT:	
+    select  sum(singles) total_singles ,
+            sum(doubles) total_doubles ,
+            sum(triples) total_triples ,
+            sum(hr) total_hr
+    from tempstats;
+
+TOTAL_SINGLES TOTAL_DOUBLES TOTAL_TRIPLES  TOTAL_HR
+------------- ------------- ------------- ----------
+    174            32             5         29
+
+
+INPUT:	
+    select  sum(singles) total_singles ,
+            sum(doubles) total_doubles ,
+            sum(triples) total_triples ,
+            sum(hr) total_hr
+    from tempstats
+    where hits/ab>=.300;
+
+TOTAL_SINGLES TOTAL_DOUBLES TOTAL_TRIPLES   TOTAL_HR
+------------- ------------- ------------- ----------
+          164            30             5         29
+
+
+INPUT:	
+    select  sum(hits)/sum(ab) team_average
+    from tempstats ;
+   
+TEAM_AVERAGE
+------------
+.337062937
+
+
+INPUT:	
+    select  sum(name) 
+    from tempstats ;
+
+ERROR at line 1:
+ORA-01722: invalid number
+
+                
+                                     AVG
+
+INPUT:	
+    select  avg(so) avg_strike_outs
+    from tempstats ;
+
+AVG_STRIKE_OUTS
+---------------
+  16.1666667
+
+
+INPUT:	
+    select  avg(hits/ab) team_avg
+    from tempstats ;
+
+  TEAM_AVG
+----------
+.268034477
+
+
+INPUT:	
+    select  avg(hits)/avg(ab) team_avg
+    from tempstats ;
+
+  TEAM_AVG
+----------
+.337062937
+
+ 
+                                    MAX
+   
+INPUT:	
+    select  max(hits)
+    from tempstats ;
+
+ MAX(HITS)
+----------
+   70
+
+INPUT:	
+    select  name
+    from tempstats 
+    where hits = max(hits)  ;
+
+ERROR at line 3: group function is not allowed here
+
+
+INPUT:
+    select max(name)
+    from tempstats ;
+
+NOTE:  Return highest(closest to Z)string
+MAX(NAME)  
+----------
+WORLEY 
+
+                                   MIN
+
+INPUT:
+    select min(ab)
+    from tempstats ;
+
+ MIN(AB)
+--------
+   1
+
+INPUT:
+    select min(name)
+    from tempstats ;
+
+MIN(NAME)
+----------
+CASEY
+
+INPUT:
+    select min(ab) , max(ab)
+    from tempstats ;
+
+   MIN(AB)    MAX(AB)
+---------- ----------
+    1        187
+
+                               VARIANCE
+                     (square of standard deviation)
+
+INPUT:
+    select  variance(hits)
+    from tempstats ;
+
+VARIANCE(HITS)
+--------------
+  802.966667
+
+INPUT:
+    select  variance(name)
+    from tempstats ;
+
+ERROR at line 1: invalid number
+
+
+                                   STDDEV
+                             (standard deviation)
+
+INPUT:
+    select  stddev(hits)
+    from tempstats ;
+
+STDDEV(HITS)
+------------
+  28.3366665
+
+
+INPUT:
+    select  count(ab),
+            avg(ab),
+            max(ab),
+            min(ab),
+            stddev(ab),
+            variance(ab),
+            sum(ab)
+    from tempstats ;
+
+ COUNT(AB)    AVG(AB)    MAX(AB)    MIN(AB) STDDEV(AB) VARIANCE(AB)    SUM(AB)
+---------- ---------- ---------- ---------- ---------- ------------ ----------
+         6 119.166667        187          1 75.5841694   5712.96667        715
+
+
+
+
+
+                             Format date and time values
+
+
+drop table project ;	   
+create table project (
+        task  varchar(15),
+	startdate varchar(10),
+	enddate varchar(10)
+	);
+insert into  project
+       values( 'KICKOFF MTG', '01-APR-95', '01-APR-95' );	   
+insert into  project
+       values( 'TECH SURVEY', '02-APR-95', '01-MAY-95' );
+insert into  project
+       values( 'USER MTGS', '15-MAY-95', '30-MAY-95' );
+insert into  project
+       values( 'DESIGN WIDGET', '01-JUN-95', '30-JUN-95' );	   
+insert into  project
+       values( 'CODE WIDGET', '01-JUL-95', '02-SEP-95' );	   
+insert into  project
+       values( 'TESTING', '03-SEP-95', '17-JAN-96' );	   
+
+
+
+INPUT:
+    select *
+    from project ;
+
+
+TASK            STARTDATE  ENDDATE
+--------------- ---------- ----------
+KICKOFF MTG     01-APR-95  01-APR-95
+TECH SURVEY     02-APR-95  01-MAY-95
+USER MTGS       15-MAY-95  30-MAY-95
+DESIGN WIDGET   01-JUN-95  30-JUN-95
+CODE WIDGET     01-JUL-95  02-SEP-95
+TESTING         03-SEP-95  17-JAN-96
+6 rows selected.
+
+
+                           ADD_MONTHS(date,int)
+
+INPUT:
+     select task,
+     STARTDATE,
+     ENDDATE original,
+     add_months( ENDDATE,2) 
+     from project;
+
+TASK            STARTDATE  ORIGINAL   ADD_MONTH
+--------------- ---------- ---------- ---------
+KICKOFF MTG     01-APR-95  01-APR-95  01-JUN-95
+TECH SURVEY     02-APR-95  01-MAY-95  01-JUL-95
+USER MTGS       15-MAY-95  30-MAY-95  30-JUL-95
+DESIGN WIDGET   01-JUN-95  30-JUN-95  31-AUG-95
+CODE WIDGET     01-JUL-95  02-SEP-95  02-NOV-95
+TESTING         03-SEP-95  17-JAN-96  17-MAR-96
+6 rows selected.
+
+INPUT:
+     select task "Task_Shorter_Then_one_Month"
+     from project
+     where add_months(startdate,1)>enddate;
+
+Task_Shorter_Th
+---------------
+KICKOFF MTG
+TECH SURVEY
+USER MTGS
+DESIGN WIDGET
+
+
+                           LAST_DAY(date)
+
+INPUT:
+     select ENDDATE ,
+     last_day (ENDDATE) 
+     from project;
+
+
+ENDDATE    LAST_DAY(
+---------- ---------
+01-APR-95  30-APR-95
+01-MAY-95  31-MAY-95
+30-MAY-95  31-MAY-95
+30-JUN-95  30-JUN-95
+02-SEP-95  30-SEP-95
+17-JAN-96  31-JAN-96
+6 rows selected.
+
+
+INPUT:
+    select last_day('1-feb-95') non_lep,
+    last_day('1-feb-96') leap
+    from project ;
+
+NON_LEP   LEAP
+--------- ---------
+28-FEB-95 29-FEB-96
+28-FEB-95 29-FEB-96
+28-FEB-95 29-FEB-96
+28-FEB-95 29-FEB-96
+28-FEB-95 29-FEB-96
+28-FEB-95 29-FEB-96
+6 rows selected.
+
+
+INPUT:
+    select distinct last_day('1-feb-95') non_lep,
+    last_day('1-feb-96') leap
+    from project ;
+
+NON_LEP   LEAP
+--------- ---------
+28-FEB-95 29-FEB-96
+
+
+                              MONTHS_BETWEEN(date ,date) 
+
+
+INPUT:
+    select task,startdate,enddate,
+    months_between(enddate,startdate) duration
+    from project ;
+
+TASK            STARTDATE  ENDDATE      DURATION
+--------------- ---------- ---------- ----------
+KICKOFF MTG     01-APR-95  01-APR-95           0
+TECH SURVEY     02-APR-95  01-MAY-95  .967741935
+USER MTGS       15-MAY-95  30-MAY-95  .483870968
+DESIGN WIDGET   01-JUN-95  30-JUN-95  .935483871
+CODE WIDGET     01-JUL-95  02-SEP-95  2.03225806
+TESTING         03-SEP-95  17-JAN-96   4.4516129
+6 rows selected.
+
+
+
+INPUT:
+    select *
+    from project 
+    where months_between('19 may 95',startdate) >0 ;
+
+TASK            STARTDATE  ENDDATE
+--------------- ---------- ----------
+KICKOFF MTG     01-APR-95  01-APR-95
+TECH SURVEY     02-APR-95  01-MAY-95
+USER MTGS       15-MAY-95  30-MAY-95
+
+
+                          NEW_TIME
+
+
+
+HOW DOES IT WORK ?
+
+              Time_Zone
+AST/ADT  Alantic standard/daylight time
+BST/BDT  Bering standard/daylight time
+CST/CDT  Central standard/daylight time
+EST/EDT  Eastern standard/daylight time
+GMT      Greenwich mean time 
+HST/HDT  Alaska-Hawaii standard/daylight time
+MST/MDT  Mountain standard/daylight time
+NST      Newfoundland standard/daylight time
+PST/PDT  Pacific standard/daylight time
+YST/YDT  Yukon standard/daylight time
+
+
+
+INPUT:
+       select enddate edt,
+       new_time(enddate,'edt' , 'pdt')
+       from project ;
+
+
+EDT        NEW_TIME(
+---------- ---------
+01-APR-95  31-MAR-95
+01-MAY-95  30-APR-95
+30-MAY-95  29-MAY-95
+30-JUN-95  29-JUN-95
+02-SEP-95  01-SEP-95
+17-JAN-96  16-JAN-96
+
+6 rows selected.
+
+                        NEXT_DAY(X,DayName)
+
+INPUT:
+       select startdate,
+       next_day(startdate,'friday')
+       from project ;
+
+Return The date of next friday after startdate
+STARTDATE  NEXT_DAY(
+---------- ---------
+01-APR-95  07-APR-95
+02-APR-95  07-APR-95
+15-MAY-95  19-MAY-95
+01-JUN-95  02-JUN-95
+01-JUL-95  07-JUL-95
+03-SEP-95  08-SEP-95
+
+       select startdate,
+       next_day(startdate,saturday)
+       from project ;
+
+STARTDATE  NEXT_DAY(
+---------- ---------
+01-APR-95  08-APR-95
+02-APR-95  08-APR-95
+15-MAY-95  20-MAY-95
+01-JUN-95  03-JUN-95
+01-JUL-95  08-JUL-95
+03-SEP-95  09-SEP-95
+
+
+
+                             SYSDATE
+
+It returns the system date and tinme.
+The DUAL table is used for calculation and contains one table.
+So we can get the date and time from dual .
+INPUT:
+     DESCRIBE DUAL 
+
+Name          Null?    Type
+------------ -------- ------------
+DUMMY                 VARCHAR2(1)
+
+INPUT:   
+     select distinct sysdate
+     from dual ;
+
+SYSDATE
+---------
+19-AUG-12
+
+INPUT:
+      select *
+      from project
+      where startdate > sysdate ; 
+no rows selected
+
+INPUT: 
+      select *
+      from project
+      where startdate < sysdate ; 
+
+TASK            STARTDATE  ENDDATE
+--------------- ---------- ----------
+KICKOFF MTG     01-APR-95  01-APR-95
+TECH SURVEY     02-APR-95  01-MAY-95
+USER MTGS       15-MAY-95  30-MAY-95
+DESIGN WIDGET   01-JUN-95  30-JUN-95
+CODE WIDGET     01-JUL-95  02-SEP-95
+TESTING         03-SEP-95  17-JAN-96
+6 rows selected.
+
+
+
+                     Arithmatic operation
+
+
+
+drop table numbers ;
+create table numbers (
+      A numeric(6,4),
+      B numeric(6,4)
+      );
+insert into numbers values (3.1415,4);
+insert into numbers values (-45,.707);
+insert into numbers values (5,9);
+insert into numbers values (-57.667,42);
+insert into numbers values (15,55);
+insert into numbers values (-7.2,5.3);
+
+
+INPUT:
+    select *
+    from numbers ;
+
+         A          B
+---------- ----------
+    3.1415          4
+       -45       .707
+         5          9
+   -57.667         42
+        15         55
+      -7.2        5.3
+6 rows selected.
+
+                                 ABS (absolute)  
+                     
+INPUT:
+    select abs(A) absolute_value
+    from numbers ;
+
+ABSOLUTE_VALUE
+--------------
+        3.1415
+            45
+             5
+        57.667
+            15
+           7.2
+6 rows selected.
+
+
+INPUT: 
+      select ceil(A), 
+      floor(B) 
+      from numbers ;
+
+   CEIL(A)   FLOOR(B)
+---------- ----------
+         4          4
+       -45          0
+         5          9
+       -57         42
+        15         55
+        -7          5
+6 rows selected.
+
+
+                          EXP,IN,LOG
+
+INPUT:
+    select A,exp(A)
+    from numbers ;
+
+         A     EXP(A)
+---------- ----------
+    3.1415 23.1385487
+       -45 2.8625E-20
+         5 148.413159
+   -57.667 9.0269E-26
+        15 3269017.37
+      -7.2 .000746586
+6 rows selected.
+
+
+INPUT:
+       select A,ln(A)
+       from numbers ;
+ERROR:
+ORA-01428: argument '-45' is out of range
+
+
+ 
+INPUT:
+      select A,ln(abs(A)),B,log(B,10)
+      from numbers ;
+
+         A LN(ABS(A))          B  LOG(B,10)
+---------- ---------- ---------- ----------
+    3.1415 1.14470039          4 1.66096405
+       -45 3.80666249       .707 -6.6409623
+         5 1.60943791          9 1.04795164
+   -57.667 4.05468509         42 .616048321
+        15  2.7080502         55 .574592874
+      -7.2 1.97408103        5.3 1.38068938
+6 rows selected.
+
+
+
+INPUT:
+       select A,B,mod(A,B),power(A,ceil(B)),sign(A),sqrt(abs(A))
+       from numbers ;
+
+         A          B   MOD(A,B) POWER(A,CEIL(B))    SIGN(A) SQRT(ABS(A))
+---------- ---------- ---------- ---------------- ---------- ------------
+    3.1415          4     3.1415       97.3976002          1   1.77242771
+       -45       .707      -.459              -45         -1   6.70820393
+         5          9          5          1953125          1   2.23606798
+   -57.667         42    -15.667       9.0981E+73         -1   7.59387911
+        15         55         15       4.8419E+64          1   3.87298335
+      -7.2        5.3       -1.9        139314.07         -1   2.68328157
+
+6 rows selected.
+
+
+
+
+                     Modify the appearance of character value
+
+
+
+drop table characters ;
+create table characters (
+      lastname char (10),
+      firstname char (10),  
+      m char(1),      
+      code char(4)
+      );
+insert into characters values ('PURVIS', 'KELLY', 'A', '32' );
+insert into characters values ('TAYLOR', 'CHUCK', 'J', '67' );
+insert into characters values ('CHIRSTINE', 'LAURA', 'C', '65' );
+insert into characters values ('ADAMS', 'FESTER', 'M', '87');
+insert into characters values ('COSTALES', 'ARMANDO', 'A', '77' );
+insert into characters values ('KONG', 'MAJOR', 'G', '52' );
+
+
+
+
+
+INPUT:
+     select *
+     from characters ;
+
+LASTNAME   FIRSTNAME  M       CODE
+---------- ---------- - ----------
+PURVIS     KELLY      A         32
+TAYLOR     CHUCK      J         67
+CHIRSTINE  LAURA      C         65
+ADAMS      FESTER     M         87
+COSTALES   ARMANDO    A         77
+KONG       MAJOR      G         52
+6 rows selected.
+
+
+
+
+
+
+                                *** CHR ***
+
+INPUT:
+     select code,chr(code)
+     from characters;
+
+CODE C
+---- -
+32
+67   C
+65   A
+87   W
+77   M
+52   4
+6 rows selected.
+
+
+INPUT:
+     select m,chr(m)
+     from characters;
+
+ERROR at line 1:
+ORA-01722: invalid number
+
+                                  
+                           CONCAT
+
+INPUT:
+     select concat( FIRSTNAME,LASTNAME) fullname
+     from characters ;
+
+
+FULLNAME
+--------------------
+KELLY     PURVIS
+CHUCK     TAYLOR
+LAURA     CHIRSTINE
+FESTER    ADAMS
+ARMANDO   COSTALES
+MAJOR     KONG
+6 rows selected.
+
+
+                               INITCAP
+
+INPUT:
+     select FIRSTNAME before , initcap(FIRSTNAME) after
+     from characters ;
+
+It shaw 1st character in capital and other in lowercase letter
+BEFORE     AFTER
+---------- ----------
+KELLY      Kelly
+CHUCK      Chuck
+LAURA      Laura
+FESTER     Fester
+ARMANDO    Armando
+MAJOR      Major
+6 rows selected.
+
+
+INPUT:
+     update characters
+     set FIRSTNAME = 'Kelly'
+     where FIRSTNAME = 'KELLY' ;
+
+OUTPUT: 1 row updated.
+
+
+INPUT:
+     select FIRSTNAME
+     from characters ;
+
+FIRSTNAME
+----------
+Kelly       <== see it
+CHUCK
+LAURA
+FESTER
+ARMANDO
+MAJOR
+6 rows selected.
+
+INPUT:
+     select FIRSTNAME , 
+        upper(FIRSTNAME), 
+        lower(FIRSTNAME)
+     from characters ;
+
+FIRSTNAME  UPPER(FIRS LOWER(FIRS
+---------- ---------- ----------
+Kelly      KELLY      kelly
+CHUCK      CHUCK      chuck
+LAURA      LAURA      laura
+FESTER     FESTER     fester
+ARMANDO    ARMANDO    armando
+MAJOR      MAJOR      major
+6 rows selected.
+
+
+
+                          LPAD,RPAD 
+
+Here 3 or 2 argument are used . 
+1st argument is a character string to be operated on.
+2nd argument is the num of char to pad it with.
+3rd argument is the char to pad it with.(optional)
+
+
+INPUT:
+     select FIRSTNAME , 
+        lpad(FIRSTNAME,15,'$'),
+        rpad(FIRSTNAME,15,'$')
+     from characters ;
+
+here 
+FIRSTNAME is a character string to be operated on.
+15 - 10 = 5 is the num of char to pad it with.
+$ is the char to pad it with.(optional)
+
+FIRSTNAME  LPAD(FIRSTNAME, RPAD(FIRSTNAME,
+---------- --------------- ---------------
+Kelly      $$$$$Kelly      Kelly     $$$$$
+CHUCK      $$$$$CHUCK      CHUCK     $$$$$
+LAURA      $$$$$LAURA      LAURA     $$$$$
+FESTER     $$$$$FESTER     FESTER    $$$$$
+ARMANDO    $$$$$ARMANDO    ARMANDO   $$$$$
+MAJOR      $$$$$MAJOR      MAJOR     $$$$$
+
+6 rows selected.
+
+
+                            LTRIM,RTRIM
+
+2 or 1 argument are used.
+1st argument is a character string to be operated on.
+2nd argument is the char to pad it with.(optional)
+
+
+About trim : 
+   Qus: select  trim ('    Tushar     '); 
+        Ans: 'Tushar'  
+   Qus: select ltrim ('    Tushar     '); 
+        Ans: 'Tushar     '  
+   Qus: select rtrim ('    Tushar     '); 
+        Ans: '    Tushar'           
+
+INPUT:
+     select FIRSTNAME , rtrim(FIRSTNAME)
+     from characters ;
+
+FIRSTNAME  RTRIM(FIRS
+---------- ----------
+Kelly      Kelly
+CHUCK      CHUCK
+LAURA      LAURA
+FESTER     FESTER
+ARMANDO    ARMANDO
+MAJOR      MAJOR
+6 rows selected.
+
+
+INPUT:
+     select FIRSTNAME , lpad(rtrim(FIRSTNAME),15,'*')
+     from characters ;
+FIRSTNAME  LPAD(RTRIM(FIRS
+---------- ---------------
+Kelly      **********Kelly
+CHUCK      **********CHUCK
+LAURA      **********LAURA
+FESTER     *********FESTER
+ARMANDO    ********ARMANDO
+MAJOR      **********MAJOR
+6 rows selected.
+
+
+
+INPUT:
+     select FIRSTNAME , lpad(ltrim(FIRSTNAME),15,'*')
+     from characters ;
+FIRSTNAME  LPAD(LTRIM(FIRS
+---------- ---------------
+Kelly      *****Kelly
+CHUCK      *****CHUCK
+LAURA      *****LAURA
+FESTER     *****FESTER
+ARMANDO    *****ARMANDO
+MAJOR      *****MAJOR
+6 rows selected.
+
+
+INPUT:
+     select FIRSTNAME , rpad(rtrim(FIRSTNAME),15,'*')
+     from characters ;
+FIRSTNAME  RPAD(RTRIM(FIRS
+---------- ---------------
+Kelly      Kelly**********
+CHUCK      CHUCK**********
+LAURA      LAURA**********
+FESTER     FESTER*********
+ARMANDO    ARMANDO********
+MAJOR      MAJOR**********
+6 rows selected.
+
+
+
+INPUT:
+     select FIRSTNAME , rpad(ltrim(FIRSTNAME),15,'*')
+     from characters ;
+FIRSTNAME  RPAD(LTRIM(FIRS
+---------- ---------------
+Kelly      Kelly     *****
+CHUCK      CHUCK     *****
+LAURA      LAURA     *****
+FESTER     FESTER    *****
+ARMANDO    ARMANDO   *****
+MAJOR      MAJOR     *****
+6 rows selected.
+
+
+
+                           REPLACE
+
+3 argument are used.
+1st is the string of searched.
+2nd is the search key.
+3rd is the replace string.
+ if 2nd string is null the target string is returned with no change.
+
+INPUT:
+     select lastname , replace(lastname,'ST','**') target
+     from characters ;
+
+LASTNAME   TARGET
+---------- --------------------
+PURVIS     PURVIS
+TAYLOR     TAYLOR
+CHIRSTINE  CHIR**INE
+ADAMS      ADAMS
+COSTALES   CO**ALES
+KONG       KONG
+6 rows selected.
+
+
+INPUT:
+     select lastname , replace(lastname,'ST') target
+     from characters ;
+or 
+     select lastname , replace(lastname,null,'**') target
+     from characters ;
+
+LASTNAME   TARGET
+---------- ----------
+PURVIS     PURVIS
+TAYLOR     TAYLOR
+CHIRSTINE  CHIRINE
+ADAMS      ADAMS
+COSTALES   COALES
+KONG       KONG
+6 rows selected.
+
+
+                                SUBSTR
+
+This 3 arg function is used to take out a piece of a tergate string. 
+1st is the target string.
+2nd is the position of 1st character . positive / negative.     
+3rd is the num of chars to show.
+
+INPUT:
+     select firstname,substr(firstname,2,3)
+     from characters ;
+FIRSTNAME  SUB
+---------- ---
+KELLY      ELL
+CHUCK      HUC
+LAURA      AUR
+FESTER     EST
+ARMANDO    RMA
+MAJOR      AJO
+6 rows selected.
+
+
+INPUT:
+     select firstname,substr(firstname,-8,2)
+     from characters ;
+FIRSTNAME  SU
+---------- --
+KELLY      LL
+CHUCK      UC
+LAURA      UR
+FESTER     ST
+ARMANDO    MA
+MAJOR      JO
+6 rows selected.
+
+
+INPUT:
+     select firstname,substr(firstname,3)
+     from characters ;
+FIRSTNAME  SUBSTR(F
+---------- --------
+KELLY      LLY
+CHUCK      UCK
+LAURA      URA
+FESTER     STER
+ARMANDO    MANDO
+MAJOR      JOR
+6 rows selected.
+
+
+
+                             TRANSLATE
+
+
+This funtion take 3 arguments.
+1st the target string.
+2nd the From string.
+3rd the To string.
+
+INPUT:
+      update characters
+             set FIRSTNAME = 'kelly'
+             where FIRSTNAME = 'KELLY' ;
+      select firstname,translate(firstname,
+            '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            'NNNNNNNNNNAAAAAAAAAAAAAAAAAAAAAAAAAA')
+             FROM  characters ;
+
+FIRSTNAME  TRANSLATE(
+---------- ----------
+kelly      kelly
+CHUCK      AAAAA
+LAURA      AAAAA
+FESTER     AAAAAA
+ARMANDO    AAAAAAA
+MAJOR      AAAAA
+6 rows selected.
+
+
+INPUT:
+      update characters
+             set FIRSTNAME = '1234'
+             where FIRSTNAME = 'kelly' ;
+      select firstname,translate(firstname,
+            '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            'NNNNNNNNNNAAAAAAAAAAAAAAAAAAAAAAAAAA')
+             FROM  characters ;
+
+FIRSTNAME  TRANSLATE(
+---------- ----------
+1234       NNNN
+CHUCK      AAAAA
+LAURA      AAAAA
+FESTER     AAAAAA
+ARMANDO    AAAAAAA
+MAJOR      AAAAA
+6 rows selected.
+
+INPUT:   update characters
+             set FIRSTNAME = 'kelly' 
+             where FIRSTNAME ='1234';
+
+
+
+
+                                INSTR 
+
+To find out where in a string a particular pattern occurs,use INstr.
+1st is the targate string.
+2nd is the pattern to match .
+3rd and 4th are numbers repreasenting where to start looking 
+and matdh to report .(optional) I don't understand it.
+
+INPUT:
+     select lastname ,instr(lastname,'O',2,1)
+     from characters ;
+LASTNAME   INSTR(LASTNAME,'O',2,1)
+---------- -----------------------
+PURVIS                           0
+TAYLOR                           5
+CHIRSTINE                        0
+ADAMS                            0
+COSTALES                         2
+KONG                             2
+6 rows selected.
+
+
+TAYLO = 5 characters
+CO = 2 characters
+KO = 2 characters
+
+
+INPUT:
+     select lastname ,instr(lastname,'S')
+     from characters ;
+
+LASTNAME   INSTR(LASTNAME,'S')
+---------- -------------------
+PURVIS                       6
+TAYLOR                       0
+CHIRSTINE                    5
+ADAMS                        5
+COSTALES                     3
+KONG                         0
+6 rows selected.
+
+
+                        LENGTH 
+
+LENGTH returns the length of its lone character argument.
+INPUT:
+     select lastname ,length(rtrim(lastname))
+     from characters ;
+
+LASTNAME   LENGTH(RTRIM(LASTNAME))
+---------- -----------------------
+PURVIS                           6
+TAYLOR                           6
+CHIRSTINE                        9
+ADAMS                            5
+COSTALES                         8
+KONG                             4
+
+6 rows selected.
+
+
+
+                      Convertion Funtion
+
+
+
+drop table convertions ;
+create table convertions (
+       name varchar(4),       
+       testnum int  
+       );
+insert into convertions values ('40',95 );
+insert into convertions values ('13',23 );
+insert into convertions values ('74',68 );
+
+
+INPUT:
+      select *
+      from convertions ;
+
+NAME    TESTNUM
+---- ----------
+40           95
+13           23
+74           68
+
+TO_CHAR: CONVERT A NUMBER TO  CHARACTER.or
+         CONVERT DATE INTO CHAR .
+
+
+INPUT:
+      select testnum ,to_char(testnum) in_char
+      from convertions ;
+
+
+  TESTNUM IN_CHAR
+--------- --------
+       95 95
+       23 23
+       68 68
+
+
+INPUT:
+      select testnum ,length(to_char(testnum)) Length
+      from convertions ;
+
+   TESTNUM     LENGTH
+---------- ----------
+        95          2
+        23          2
+        68          2
+
+INPUT:
+      select name , testnum , testnum +to_number(name) sum
+      from convertions ;
+
+
+NAME    TESTNUM        SUM
+---- ---------- ----------
+40           95        135
+13           23         36
+74           68        142
+
+
+
+

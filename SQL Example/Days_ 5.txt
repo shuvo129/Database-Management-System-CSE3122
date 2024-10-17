@@ -1,0 +1,684 @@
+
+
+
+                         ORDER BY 
+The ORDER BY clause gives u a way of ordering ur result ASC
+    or DESC (ascending/decending) order. Default ascending .
+
+
+drop table checks ;
+create table checks (
+        check# int,
+        payee varchar(20),
+        amount numeric (10,2),
+        remark varchar(20)
+);
+insert into checks 
+     values ( 1, 'MA BELL', 150 , 'HAVE SONS NEXT TIME');
+insert into checks 
+     values ( 2, 'READING R.R', 245.34 , 'TRAIN TO CHICAGO');
+insert into checks 
+     values ( 3, 'MA BELL', 200.33 , 'CELLULAR PHON');
+insert into checks 
+     values ( 4, 'LOCAL UTILITIES', 98 , 'GAS');
+insert into checks 
+     values ( 5, 'JOES STALE $ DENT', 150 , 'GROCERIES');
+insert into checks 
+     values ( 8, 'CASH', 60 , 'TRIP TO BOSTON');
+insert into checks 
+     values ( 9, 'ABES CLEANERS', 24.35 , 'X-TRA STARCH');
+insert into checks 
+     values ( 16, 'CASH', 25 , 'WILD NIGHT OUT');
+insert into checks 
+     values ( 17, 'JOANS GAS', 25.1 , 'GAS');
+insert into checks 
+     values ( 20, 'ABES CLEANERS', 10.5 , 'ALL DRY CLEAN');
+insert into checks 
+     values ( 21, 'CASH', 34 , 'TRIP TO DAYTON');
+
+
+
+INPUT: 
+       select *
+       from checks ;
+
+    CHECK# PAYEE                    AMOUNT REMARK
+---------- -------------------- ---------- --------------------
+         1 MA BELL                     150 HAVE SONS NEXT TIME
+         2 READING R.R              245.34 TRAIN TO CHICAGO
+         3 MA BELL                  200.33 CELLULAR PHON
+         4 LOCAL UTILITIES              98 GAS
+         5 JOES STALE $ DENT           150 GROCERIES
+         8 CASH                         60 TRIP TO BOSTON
+         9 ABES CLEANERS             24.35 X-TRA STARCH
+        16 CASH                         25 WILD NIGHT OUT
+        17 JOANS GAS                  25.1 GAS
+        20 ABES CLEANERS              10.5 ALL DRY CLEAN
+        21 CASH                         34 TRIP TO DAYTON
+11 rows selected.
+
+NOTE: Unless you have defined a primary key your quary comes
+      out in the order the rows were entered.
+
+INPUT: 
+       select *
+       from checks 
+       ORDER BY  payee desc ; 
+
+    CHECK# PAYEE                    AMOUNT REMARK
+---------- -------------------- ---------- --------------------
+         2 READING R.R              245.34 TRAIN TO CHICAGO
+         1 MA BELL                     150 HAVE SONS NEXT TIME
+         3 MA BELL                  200.33 CELLULAR PHON
+         4 LOCAL UTILITIES              98 GAS
+         5 JOES STALE $ DENT           150 GROCERIES
+        17 JOANS GAS                  25.1 GAS
+         8 CASH                         60 TRIP TO BOSTON
+        16 CASH                         25 WILD NIGHT OUT
+        21 CASH                         34 TRIP TO DAYTON
+         9 ABES CLEANERS             24.35 X-TRA STARCH
+        20 ABES CLEANERS              10.5 ALL DRY CLEAN
+11 rows selected.
+
+INPUT: 
+       select *
+       from checks 
+       ORDER BY  payee asc,remark desc ; 
+
+    CHECK# PAYEE                    AMOUNT REMARK
+---------- -------------------- ---------- --------------------
+         9 ABES CLEANERS             24.35 X-TRA STARCH
+        20 ABES CLEANERS              10.5 ALL DRY CLEAN
+        16 CASH                         25 WILD NIGHT OUT
+        21 CASH                         34 TRIP TO DAYTON
+         8 CASH                         60 TRIP TO BOSTON
+        17 JOANS GAS                  25.1 GAS
+         5 JOES STALE $ DENT           150 GROCERIES
+         4 LOCAL UTILITIES              98 GAS
+         1 MA BELL                     150 HAVE SONS NEXT TIME
+         3 MA BELL                  200.33 CELLULAR PHON
+         2 READING R.R              245.34 TRAIN TO CHICAGO
+11 rows selected.
+
+NOTE : If u know that a column you want to order ur results
+       by is the 1st column in a table u can use only 1 insted
+       of that column. similarly u can use 2,3,4....
+
+INPUT:
+       select *
+       from checks 
+       ORDER BY  1; 
+
+    CHECK# PAYEE                    AMOUNT REMARK
+---------- -------------------- ---------- --------------------
+         1 MA BELL                     150 HAVE SONS NEXT TIME
+         2 READING R.R              245.34 TRAIN TO CHICAGO
+         3 MA BELL                  200.33 CELLULAR PHON
+         4 LOCAL UTILITIES              98 GAS
+         5 JOES STALE $ DENT           150 GROCERIES
+         8 CASH                         60 TRIP TO BOSTON
+         9 ABES CLEANERS             24.35 X-TRA STARCH
+        16 CASH                         25 WILD NIGHT OUT
+        17 JOANS GAS                  25.1 GAS
+        20 ABES CLEANERS              10.5 ALL DRY CLEAN
+        21 CASH                         34 TRIP TO DAYTON
+11 rows selected.
+
+
+
+
+
+
+                         GRUP BY CLAUSE
+
+
+insert into checks 
+     values ( 30, 'LOCAL UTILITIES', 87.5 , 'WATER');
+insert into checks 
+     values ( 31, 'LOCAL UTILITIES', 34 , 'SEWER');
+insert into checks 
+     values ( 25, 'JOANS GAS', 15.75 , 'GAS');
+
+INPUT:
+       select *
+       from checks ;
+
+    CHECK# PAYEE                    AMOUNT REMARK
+---------- -------------------- ---------- --------------------
+         1 MA BELL                     150 HAVE SONS NEXT TIME
+         2 READING R.R              245.34 TRAIN TO CHICAGO
+         3 MA BELL                  200.33 CELLULAR PHON
+         4 LOCAL UTILITIES              98 GAS
+         5 JOES STALE $ DENT           150 GROCERIES
+         8 CASH                         60 TRIP TO BOSTON
+         9 ABES CLEANERS             24.35 X-TRA STARCH
+        16 CASH                         25 WILD NIGHT OUT
+        17 JOANS GAS                  25.1 GAS
+        20 ABES CLEANERS              10.5 ALL DRY CLEAN
+        21 CASH                         34 TRIP TO DAYTON
+        30 LOCAL UTILITIES            87.5 WATER
+        31 LOCAL UTILITIES              34 SEWER
+        25 JOANS GAS                 15.75 GAS
+14 rows selected.
+
+INPUT:
+       select payee,sum(amount)
+       from checks 
+       group by payee ;
+
+PAYEE                SUM(AMOUNT)
+-------------------- -----------
+ABES CLEANERS              34.85
+CASH                         119
+JOANS GAS                  40.85
+JOES STALE $ DENT            150
+LOCAL UTILITIES            219.5
+MA BELL                   350.33
+READING R.R               245.34
+7 rows selected.
+
+
+INPUT:
+       select payee, sum(amount),count(payee),count(check#)
+       from checks 
+       group by payee ;
+
+PAYEE                SUM(AMOUNT) COUNT(PAYEE) COUNT(CHECK#)
+-------------------- ----------- ------------ -------------
+ABES CLEANERS              34.85            2             2
+CASH                         119            3             3
+JOANS GAS                  40.85            2             2
+JOES STALE $ DENT            150            1             1
+LOCAL UTILITIES            219.5            3             3
+MA BELL                   350.33            2             2
+READING R.R               245.34            1             1
+7 rows selected.
+
+
+INPUT:
+       select CHECK#, sum(amount)
+       from checks 
+       group by CHECK# ;
+
+    CHECK# SUM(AMOUNT) 
+    ------ ----------- 
+         1         150  
+         2      245.34  
+         3      200.33  
+         4          98  
+         5         150  
+         8          60  
+         9       24.35  
+        16          25  
+        17        25.1  
+        20        10.5  
+        21          34  
+        25       15.75  
+        30        87.5  
+        31          34  
+14 rows selected.
+
+
+INPUT:
+       select payee, sum(amount),count(payee)
+       from checks 
+       group by remarks ;
+ERROR : invalid column name
+
+NOTE: Because when the query finds 2 records with the same REMARKS 
+but different PAYEEs,such as the rows that have GAS as a REMARK 
+but have PAYEEs of LOCAL UTTILITIES and JOANS GAS,it throws an error.
+
+INPUT:
+     select payee,sum(amount)
+     from checks  ;
+ERROR: not a single-group group function
+NOTE : kono group hoi ni tai error hobe . karon sum(amount) will 
+       return a single tupple using  group  but payee return all
+       payees that will  not groupping match with sum(amount).
+
+
+INPUT:
+     select remark ,max(amount),min(amount),count(remark)
+     from checks 
+     group by remark ;
+
+REMARK               MAX(AMOUNT) MIN(AMOUNT) COUNT(REMARK)
+-------------------- ----------- ----------- -------------
+ALL DRY CLEAN               10.5        10.5             1
+CELLULAR PHON             200.33      200.33             1
+GAS                           98       15.75             3
+GROCERIES                    150         150             1
+HAVE SONS NEXT TIME          150         150             1
+SEWER                         34          34             1
+TRAIN TO CHICAGO          245.34      245.34             1
+TRIP TO BOSTON                60          60             1
+TRIP TO DAYTON                34          34             1
+WATER                       87.5        87.5             1
+WILD NIGHT OUT                25          25             1
+X-TRA STARCH               24.35       24.35             1
+12 rows selected.
+
+NOTE: If we try to see any column insted of remark then 
+      error will be occure. 
+
+INPUT:
+     select payee,remark ,max(amount),min(amount)
+     from checks 
+     group by remark ;
+ERROR at line 1: not a GROUP BY expression
+
+
+INPUT:
+     select payee,remark , sum(amount),count(payee)
+     from checks 
+     group by payee , remark ;
+
+PAYEE                REMARK               SUM(AMOUNT) COUNT(PAYEE)
+-------------------- -------------------- ----------- ------------
+ABES CLEANERS        ALL DRY CLEAN               10.5            1
+ABES CLEANERS        X-TRA STARCH               24.35            1
+CASH                 TRIP TO BOSTON                60            1
+CASH                 TRIP TO DAYTON                34            1
+CASH                 WILD NIGHT OUT                25            1
+JOANS GAS            GAS                        40.85            2
+JOES STALE $ DENT    GROCERIES                    150            1
+LOCAL UTILITIES      GAS                           98            1
+LOCAL UTILITIES      SEWER                         34            1
+LOCAL UTILITIES      WATER                       87.5            1
+MA BELL              CELLULAR PHON             200.33            1
+MA BELL              HAVE SONS NEXT TIME          150            1
+READING R.R          TRAIN TO CHICAGO          245.34            1
+13 rows selected.
+
+
+NOTE: There is no error Bcos of the following query-->
+INPUT:
+     select payee, remark 
+     from checks 
+     where  payee ='JOANS GAS';
+
+PAYEE                REMARK
+-------------------- --------------------
+JOANS GAS            GAS
+JOANS GAS            GAS
+ 
+INPUT:
+     select payee,count(amount)
+     from checks 
+     group by payee , amount ;
+
+PAYEE                COUNT(AMOUNT)
+-------------------- -------------
+ABES CLEANERS                    1
+ABES CLEANERS                    1
+CASH                             1
+CASH                             1
+CASH                             1
+JOANS GAS                        1
+JOANS GAS                        1
+JOES STALE $ DENT                1
+LOCAL UTILITIES                  1
+LOCAL UTILITIES                  1
+LOCAL UTILITIES                  1
+MA BELL                          1
+MA BELL                          1
+READING R.R                      1
+14 rows selected.
+
+
+
+
+
+                         HAVING
+
+We use HAVING whene we need to use aggregation function in WHERE 
+   clause. If we use any condition in WHERE  then query return  
+   tupples whose are true for the given condition. On the other 
+   hand for HAVING we get those group whose are true in HAVING
+   condition. 
+
+drop table orgchart ;
+create table orgchart (
+       name varchar(15),
+       team varchar (15),
+       salary numeric(10,2),
+       sickleave int,
+       annualleave int    
+       );
+insert into orgchart 
+     values ('ADAMS','RESEARCH',34000.00 ,34 ,12 );
+insert into orgchart 
+     values ('WULKES','MARKETING', 31000.00, 40, 9);
+insert into orgchart 
+     values ('STOKES','MARKETING', 36000.00, 20, 19);
+insert into orgchart 
+     values ('MEZA','COLLECTION',40000.00 ,30 , 27);
+insert into orgchart 
+     values ('MERRICK','RESEARCH',45000.00 ,20 ,17 );
+insert into orgchart 
+     values ('RICHARDSON','MARKETING', 42000.00,25 ,18 );
+insert into orgchart 
+     values ('FURY','COLLECTION', 35000.00, 22, 14);
+insert into orgchart 
+     values ('PRECOURT','PR',37500.00 ,24 ,24 );
+
+
+INPUT:
+     select *
+     from orgchart ;
+
+NAME            TEAM                SALARY  SICKLEAVE ANNUALLEAVE
+--------------- --------------- ---------- ---------- -----------
+ADAMS           RESEARCH             34000         34          12
+WULKES          MARKETING            31000         40           9
+STOKES          MARKETING            36000         20          19
+MEZA            COLLECTION           40000         30          27
+MERRICK         RESEARCH             45000         20          17
+RICHARDSON      MARKETING            42000         25          18
+FURY            COLLECTION           35000         22          14
+PRECOURT        PR                   37500         24          24
+8 rows selected.
+
+
+INPUT:
+     select team, avg(salary)
+     from orgchart 
+     group by team  ;
+
+
+TEAM            AVG(SALARY)
+--------------- -----------
+COLLECTION            37500
+MARKETING        36333.3333
+PR                    37500
+RESEARCH              39500
+
+
+INPUT:
+     select team, avg(salary)
+     from orgchart 
+     where avg(salary) < 38000  
+     group by team  ;
+ERROR at line 3: group function is not allowed here
+NOTE: To make this query we can use HAVING clause.
+ 
+
+INPUT:
+      select team, avg(salary)
+      from orgchart 
+      group by team  
+      having avg(salary) < 38000 ;
+
+TEAM            AVG(SALARY)
+--------------- -----------
+COLLECTION            37500
+MARKETING        36333.3333
+PR                    37500
+
+
+INPUT:
+     select team ,avg(salary),sum(salary),count(team)
+     from orgchart
+     where salary < 38000 
+     group by team ; 
+
+TEAM            AVG(SALARY) SUM(SALARY) COUNT(TEAM)
+--------------- ----------- ----------- -----------
+COLLECTION            35000       35000           1
+MARKETING             33500       67000           2
+PR                    37500       37500           1
+RESEARCH              34000       34000           1
+
+
+
+INPUT:   problem ('.')
+     select team ,avg(salary)
+     from orgchart
+     group by team   
+     having salary < 38000 ; 
+ERROR at line 4: not a GROUP BY expression
+amra jani HAHING group a kaj kore tahole ans hobe :
+
+TEAM             avg(salary)
+---------------  -----------
+PR                  37500***
+
+
+INPUT: 
+     select name , team , salary
+     from orgchart
+     order by team ; 
+
+NAME            TEAM                SALARY
+--------------- --------------- ----------
+MEZA            COLLECTION           40000
+FURY            COLLECTION           35000
+WULKES          MARKETING            31000
+STOKES          MARKETING            36000
+RICHARDSON      MARKETING            42000
+PRECOURT        PR                   37500***
+ADAMS           RESEARCH             34000
+MERRICK         RESEARCH             45000
+8 rows selected.
+
+
+NOTE: WE CAN USE MORE THAN ONE CONDITION IN having CLAUSE.
+INPUT: 
+     select team ,avg(sickleave),avg(annualleave)
+     from orgchart
+     group by team 
+     HAVING  avg(sickleave) >25 and avg(annualleave) < 20 ; 
+
+TEAM            AVG(SICKLEAVE) AVG(ANNUALLEAVE)
+--------------- -------------- ----------------
+MARKETING           28.3333333       15.3333333
+RESEARCH                    27             14.5
+
+
+INPUT: 
+     select team ,min(salary) , max(salary)
+     from orgchart
+     group by team 
+     HAVING  min(salary) > 32000.00  or avg(salary) > 37000.00 ;
+
+TEAM            MIN(SALARY) MAX(SALARY)
+--------------- ----------- -----------
+COLLECTION            35000       40000
+PR                    37500       37500
+RESEARCH              34000       45000
+
+
+INPUT: 
+     select team , avg(salary)
+     from orgchart
+     group by team 
+     HAVING team IN('PR','RESEARCH');
+
+
+TEAM            AVG(SALARY)
+--------------- -----------
+PR                    37500
+RESEARCH              39500
+
+
+
+
+
+                         COMBINING cLAUSE
+
+EXAM-*:
+
+INPUT:
+     select payee,remark
+     from checks
+     where payee = 'CASH'
+           or remark like 'GA%'
+     order by remark ;
+
+PAYEE                REMARK
+-------------------- --------------------
+LOCAL UTILITIES      GAS
+JOANS GAS            GAS
+JOANS GAS            GAS
+CASH                 TRIP TO BOSTON
+CASH                 TRIP TO DAYTON
+CASH                 WILD NIGHT OUT
+6 rows selected.
+
+
+INPUT:
+     select payee,remark
+     from checks                                                               
+     where payee = 'CASH'
+           or remark like 'GA%'
+     group by payee 
+     order by remark ;
+Why it does't work.
+
+
+INPUT:
+     select team,
+            avg(salary),
+            avg(sickleave),
+            avg(annualleave)
+     from orgchart 
+     group by team  ;
+
+TEAM            AVG(SALARY) AVG(SICKLEAVE) AVG(ANNUALLEAVE)
+--------------- ----------- -------------- ----------------
+COLLECTION            37500             26             20.5
+MARKETING        36333.3333     28.3333333       15.3333333
+PR                    37500             24               24
+RESEARCH              39500             27             14.5
+
+
+upporer ti hole ata hoi na cano ?
+INPUT:
+     select team,
+            avg(salary),
+            avg(sickleave),
+            avg(annualleave)
+     from orgchart 
+     group by team
+     order by name ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+Q1: Create a table named Worker with the attributes: 
+	WORKER_ID -> int, not null & PRIMARY KEY,
+	FIRST_NAME -> CHAR,
+	LAST_NAME -> CHAR,
+	SALARY -> INT,
+	JOINING_DATE -> DATETIME,
+	DEPARTMENT -> CHAR
+
+Q2: Insert these data into the table:
+		(001, 'Monika', '  Arora',   100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'Verma',   80000, ' 14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal',   'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'Amitabh',  'Singh',   500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek',    'Bhati',   500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul',    'Diwan',   200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'Satish',   'Kumar',   75000,  '14-01-20 09.00.00', 'Account'),
+		(008, 'Geetika',  'Chauhan', 90000,  '14-04-11 09.00.00', 'Admin');
+
+Q3: Write an SQL query to fetch unique values of DEPARTMENT from Worker table.
+Q4: Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending and    	DEPARTMENT Descending.
+Q5: Write an SQL query to print details of workers excluding first names, “Vipul” and “Satish” from Worker 	table.
+Q6: Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six 	alphabets.
+Q7: Write an SQL query to print details of the Workers whose SALARY lies between 100000 and 500000.

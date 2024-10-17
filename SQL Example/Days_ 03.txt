@@ -1,0 +1,1083 @@
+
+
+
+drop table branch;
+create table branch (  
+       branch_name char(26),
+       branch_city char(26),
+       assets  numeric(16,2),
+       primary key(branch_name)
+    );
+insert into branch	
+      values ( 'Brighton','Brooklyn',7100000 );
+insert into branch	
+      values ( 'Downtown','Brooklyn',9000000 );	  
+insert into branch	
+      values ( 'Mianus','Horseneck',400000 );	  
+insert into branch	
+      values ( 'North','Town Rye',3700000 );	  
+insert into branch	
+      values ( 'Perryridge','Horseneck',1700000 );	  
+insert into branch	
+      values ( 'Pownal','Bennington',300000 );	  
+insert into branch	
+      values ( 'Redwood','Palo Alto',2100000 );	  
+insert into branch	
+      values ( 'Round Hill','Horseneck',8000000 );
+
+	  
+
+drop table HILOW ;	  
+create table HILOW (  
+       state char(26),
+       hightemp numeric(16,2),
+       lowtemp  numeric(16,2),
+       primary key(state)
+    );
+insert into hilow	
+      values ( 'BT',50,10 );
+insert into hilow
+      values ( 'DK',100,25 );	  
+insert into hilow	
+      values ( 'MU',75,50 );	  
+insert into hilow	
+      values ( 'NO',37,22);	  	
+	
+	  
+
+
+drop table remins;	  
+create table remins (  
+       numerator int,
+       denominator  int
+    );
+insert into remins	
+      values ( 10 ,5);
+insert into remins
+      values ( 15,4 );	  
+insert into remins	
+      values ( 5,2 );	  
+insert into remins	
+      values ( 50,80);	 
+	
+	  
+
+drop table friends ;	  
+create table friends (
+       lastname  varchar(13),
+       fristname varchar(13),
+       areacode int,
+       phone varchar(13),
+       state varchar(13),
+       zip   int
+    );
+insert into friends	
+      values ('BUNDY','AL',100,'555-1111','IL',223333 );		  
+insert into friends	
+      values ( 'MEZA','AL',200,'555-2222','UK' ,NULL);
+insert into friends	
+      values ( 'MERRICK','BUD',300,'555-6666','CO',80212 );	
+insert into friends	
+      values ( 'MAST','JD',381,'555-6767','LA',23456 );	
+insert into friends	
+      values ( 'BULHER','FERRIS',345,'555-3223','IL',23332 );
+insert into friends	
+      values ('PERKINS','ALTON',911,'555-3116','CA',95633 );
+insert into friends	
+      values ('BOOS','SIR',204,'555-2345','CT',95633 );	  
+	  
+	  
+
+
+drop table vacation ;
+create table vacation (
+       lastname varchar(13),
+       employeenum  int,
+       year  int,  
+       leavetaken int
+     );
+insert into vacation	
+      values ('ABLE',101,2,4);
+insert into vacation	
+      values ('BAKER',104,5,23);
+insert into vacation	
+      values ('BELDSOE',107,8,45);
+insert into vacation	
+      values ('BOLIVAR',233,4,80);
+insert into vacation	
+      values ('BOLD',210,15,100);
+insert into vacation	
+      values ('COSTALES',211,10,78);
+
+
+
+drop table football;
+create table football (
+       name varchar(13)
+       );
+insert into football	
+      values ('ABLE');
+insert into football	
+      values ('BRAVO');
+insert into football	
+      values ('CHARLIE');
+insert into football	
+      values ('DECON');
+insert into football	
+      values ('EXITOR');
+insert into football	
+      values ('FUBAR');
+insert into football	
+      values ('GOOBER');
+
+
+
+drop table softball;
+create table softball (
+       name varchar(13)
+       );
+insert into softball	
+      values ('ABLE');
+insert into softball	
+      values ('BAKER');
+insert into softball	
+      values ('CHARLIE');
+insert into softball	
+      values ('DEAN');
+insert into softball	
+      values ('EXITOR');
+insert into softball	
+      values ('FALCONER');
+insert into softball	
+      values ('GOOBER');
+
+
+
+	  
+	                     ARITHMATIC OPERATOR                                      
+	                           PLUS(+)  
+	  
+INPUT:	  
+	select *
+        from branch ;	 
+
+OUTPUT:	
+	  BRANCH_NAME                 BRANCH_CITY           ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+8 rows selected.
+
+	  
+INPUT:	  
+	select   branch_name , assets , assets+50
+	from branch ; 
+	
+OUTPUT:	  
+
+      BRANCH_NAME            ASSETS      ASSETS+50
+-------------------------- ----------  ----------
+Brighton                      7100000    7100050
+Downtown                      9000000    9000050
+Mianus                         400000     400050
+North                         3700000    3700050
+Perryridge                    1700000    1700050
+Pownal                         300000     300050
+Redwood                       2100000    2100050
+Round Hill                    8000000    8000050
+8 rows selected.	  
+	  
+INPUT:	  
+        select   branch_name , assets , (assets + 0.50)  new_assets
+	from branch ; 
+    OR 
+        select   branch_name , assets , assets+0.50 as new_assets
+	from branch ;
+    OR
+        select   branch_name , assets , assets+0.50  new_assets
+	from branch ; 	
+	  
+OUTPUT:	  
+
+BRANCH_NAME                    ASSETS NEW_ASSETS
+-------------------------- ---------- ----------
+Brighton                      7100000  7100000.5
+Downtown                      9000000  9000000.5
+Mianus                         400000   400000.5
+North                         3700000  3700000.5
+Perryridge                    1700000  1700000.5
+Pownal                         300000   300000.5
+Redwood                       2100000  2100000.5
+Round Hill                    8000000  8000000.5
+8 rows selected.
+	  
+	  
+	  
+	  
+	                     ARITHMATIC OPERATOR                                      
+	                           MINUS(-)  	  
+	  
+
+INPUT:
+        select *
+	from hilow;
+	
+OUTPUT:
+
+STATE       HIGHTEMP    LOWTEMP
+----------- ---------- ----------
+BT          50          10
+DK          100         25
+MU          75          50
+NO          37          22
+
+
+INPUT:
+        select STATE,-HIGHTEMP LOW ,-LOWTEMP HIGH
+	from hilow;
+
+OUTPUT:
+
+STATE                             LOW       HIGH
+--------------------------     ---------- ----------
+BT                                -50        -10
+DK                               -100        -25
+MU                                -75        -50
+NO                                -37        -22
+
+INPUT:
+       select STATE,
+       HIGHTEMP LOW ,
+       LOWTEMP HIGH ,
+       (HIGHTEMP-LOWTEMP) DIFFERENCE
+       from hilow;
+
+OUTPUT:
+
+STATE                             LOW       HIGH     DIFFERENCE
+--------------------------     ---------- ---------- ----------
+BT                                 50         10         40
+DK                                100         25         75
+MU                                 75         50         25
+NO                                 37         22         15
+
+
+
+	  
+	                     ARITHMATIC OPERATOR                                      
+	                           DIVIDE(/)  	
+
+
+INPUT:	  
+	select *
+        from branch ;	 
+
+OUTPUT:	
+	  BRANCH_NAME          BRANCH_CITY               ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+8 rows selected.
+
+
+
+INPUT:	  
+	select   branch_name , assets , assets/100000
+	from branch ; 
+	
+OUTPUT:	 
+
+BRANCH_NAME                    ASSETS ASSETS/100000
+-------------------------- ---------- -------------
+Brighton                      7100000            71
+Downtown                      9000000            90
+Mianus                         400000             4
+North                         3700000            37
+Perryridge                    1700000            17
+Pownal                         300000             3
+Redwood                       2100000            21
+Round Hill                    8000000            80
+8 rows selected.
+
+
+
+
+	                     ARITHMATIC OPERATOR                                      
+	                         MULTIPLY(*)  	
+
+
+INPUT:	  
+	select *
+        from branch ;	 
+
+OUTPUT:	
+	  BRANCH_NAME                 BRANCH_CITY           ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+8 rows selected.
+
+
+INPUT:	  
+	select   branch_name , assets , assets*0.000001
+	from branch ; 
+	
+OUTPUT:	
+
+BRANCH_NAME                    ASSETS ASSETS*0.000001
+-------------------------- ---------- ---------------
+Brighton                      7100000             7.1
+Downtown                      9000000               9
+Mianus                         400000              .4
+North                         3700000             3.7
+Perryridge                    1700000             1.7
+Pownal                         300000              .3
+Redwood                       2100000             2.1
+Round Hill                    8000000               8
+
+8 rows selected.
+
+
+
+
+	                     ARITHMATIC OPERATOR                                      
+	                         REMINDER(%)  	
+							   
+INPUT:
+    select *
+    from remins ;	
+							   
+OUTPUT:
+							   							   
+ NUMERATOR DENOMINATOR
+---------- -----------
+        10           5
+        15           4
+         5           2
+        50          80
+INPUT:							   
+    select NUMERATOR , DENOMINATOR ,NUMERATOR % DENOMINATOR reminder
+    from remins ;							   
+							   
+problem $$$$$                             
+ERROR at line 1:
+ORA-00911: invalid character
+							   
+							   
+
+	                     ARITHMATIC OPERATOR                                      
+	                   = , > , >= , < ,<= ,
+                         <> or !=   (inequalities)							   
+							   
+
+INPUT:	  
+	select *
+        from branch ;	 
+
+OUTPUT:	
+	  BRANCH_NAME                 BRANCH_CITY           ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+8 rows selected.
+
+
+
+INPUT :
+    select *
+    from branch
+    where branch_city = 'Brooklyn' ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+
+INPUT :
+    select *
+    from branch
+    where branch_city >= 'Brooklyn' ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+7 rows selected.
+
+
+INPUT :
+    select *
+    from branch
+    where assets > 7100000 ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Downtown                   Brooklyn                      9000000
+Round Hill                 Horseneck                     8000000
+
+
+INPUT :
+    select *
+    from branch
+    where assets >= 7100000 ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Round Hill                 Horseneck                     8000000
+
+
+INPUT :
+    select *
+    from branch
+    where assets < 7100000 ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+
+INPUT :
+    select *
+    from branch
+    where assets <= 7100000 ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+
+
+INPUT :
+    select *
+    from branch
+    where branch_city <> 'Brooklyn' ;	
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+6 rows selected.
+
+
+
+
+	                     CHARACTER OPERATOR                                      
+	                          LIKE ( % )
+
+
+NOTE: Applicable for  both  varchar(n) and char() type domain							   
+INPUT:	  
+	select *
+        from branch ;	 
+
+OUTPUT:	
+	  BRANCH_NAME            BRANCH_CITY           ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+8 rows selected.
+
+
+
+INPUT:char/varchar
+    select *
+    from branch
+    where BRANCH_NAME  like '%idg%'  ;
+							   
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Perryridge                 Horseneck                     1700000							   
+	
+						   
+
+INPUT:char/varchar						   
+    select *
+    from branch
+    where BRANCH_NAME  like 'Perry%'  ;							   
+							   
+OUTPUT:							   
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Perryridge                 Horseneck                     1700000							   
+		
+					   
+							   
+INPUT:char/varchar							   
+    select *
+    from branch
+    where BRANCH_NAME  like 'P%'  ;							   
+							   
+OUTPUT:								   
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+							   
+	
+						   
+INPUT:char/varchar						   
+    select *
+    from branch
+    where BRANCH_NAME  like 'b%'  ;							   
+							   
+OUTPUT:	
+no rows selected
+
+
+INPUT: For Only Varchar 
+    select *
+    from vacation
+    where lastname  like '%E'  ;
+
+LASTNAME      EMPLOYEENUM       YEAR LEAVETAKEN
+------------- ----------- ---------- ----------
+ABLE                  101          2          4
+BELDSOE               107          8         45
+
+						   
+	
+	
+	
+	                     CHARACTER OPERATOR                                      
+	                          LIKE (_)
+
+
+
+NOTE: Applicable for  only  varchar(n) type domain
+
+SQL> describe friends ;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ LASTNAME                                           VARCHAR2(13)
+ FRISTNAME                                          VARCHAR2(13)
+ AREACODE                                           NUMBER(38)
+ PHONE                                              VARCHAR2(13)
+ STATE                                              VARCHAR2(13)
+ ZIP                                                NUMBER(38)
+
+
+
+INPUT:							   
+    select *
+    from friends;
+     
+OUTPUT:	
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+BUNDY         AL                   100 555-1111      IL                223333
+MEZA          AL                   200 555-2222      UK
+MERRICK       BUD                  300 555-6666      CO                 80212
+MAST          JD                   381 555-6767      LA                 23456
+BULHER        FERRIS               345 555-3223      IL                 23332
+PERKINS       ALTON                911 555-3116      CA                 95633
+BOOS          SIR                  204 555-2345      CT                 95633
+7 rows selected.
+
+
+
+Names of 2 characters and started with C(case sensative)
+INPUT:							   
+    select *
+    from friends
+    where state  LIKE  'C_';
+     	  
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+MERRICK       BUD                  300 555-6666      CO                 80212
+PERKINS       ALTON                911 555-3116      CA                 95633
+BOOS          SIR                  204 555-2345      CT                 95633
+
+
+
+
+INPUT:							   
+    select *
+    from friends
+    where PHONE   LIKE  '555-6_6_';
+     	  	
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+MERRICK       BUD                  300 555-6666      CO                 80212
+MAST          JD                   381 555-6767      LA                 23456
+
+
+INPUT:							   
+    select *
+    from friends
+    where PHONE   LIKE  '555-6%';
+     	  
+OUTPUT:	
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+MERRICK       BUD                  300 555-6666      CO                 80212
+MAST          JD                   381 555-6767      LA                 23456
+
+
+INPUT:							   
+    select *
+    from friends
+    where FRISTNAME   LIKE  '_L%';
+     	  
+OUTPUT:
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+BUNDY         AL                   100 555-1111      IL                223333
+MEZA          AL                   200 555-2222      UK
+PERKINS       ALTON                911 555-3116      CA                 95633
+
+
+
+INPUT:							   
+    select *
+    from friends
+    where FRISTNAME   LIKE  '___';
+     	  
+OUTPUT:
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+MERRICK       BUD                  300 555-6666      CO                 80212
+BOOS          SIR                  204 555-2345      CT                 95633
+
+
+INPUT:							   
+    select *
+    from friends
+    where FRISTNAME   LIKE  '___%';
+     	  
+OUTPUT:
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+MERRICK       BUD                  300 555-6666      CO                 80212
+BULHER        FERRIS               345 555-3223      IL                 23332
+PERKINS       ALTON                911 555-3116      CA                 95633
+BOOS          SIR                  204 555-2345      CT                 95633
+
+
+
+
+	                     CONCATENATION OPERATOR                                      
+	                           ( || )
+
+
+
+                         *** DOMAIN TYPE ARE CHAR(N) ***
+
+INPUT:	  
+	select *
+        from branch ;	 
+
+OUTPUT:	
+	  BRANCH_NAME                 BRANCH_CITY           ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+8 rows selected.
+
+
+INPUT: for char
+  select BRANCH_NAME  ||  BRANCH_CITY            
+  from branch ;
+
+
+BRANCH_NAME||BRANCH_CITY
+--------------------------------------------------
+Brighton                  Brooklyn
+Downtown                  Brooklyn
+Mianus                    Horseneck
+North                     Town Rye
+Perryridge                Horseneck
+Pownal                    Bennington
+Redwood                   Palo Alto
+Round Hill                Horseneck
+
+8 rows selected.
+
+
+
+DOMAIN TYPE ARE VARCHAR(N)
+
+INPUT:							   
+    select *
+    from friends;
+     
+OUTPUT:	
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+BUNDY         AL                   100 555-1111      IL                223333
+MEZA          AL                   200 555-2222      UK
+MERRICK       BUD                  300 555-6666      CO                 80212
+MAST          JD                   381 555-6767      LA                 23456
+BULHER        FERRIS               345 555-3223      IL                 23332
+PERKINS       ALTON                911 555-3116      CA                 95633
+BOOS          SIR                  204 555-2345      CT                 95633
+7 rows selected.
+
+
+
+INPUT: for varchar							   
+    select   FRISTNAME || LASTNAME  FULLNAME
+    from friends;
+     
+OUTPUT:	
+LASTNAME||FRISTNAME
+--------------------------
+BUNDYAL
+MEZAAL
+MERRICKBUD
+MASTJD
+BULHERFERRIS
+PERKINSALTON
+BOOSSIR
+7 rows selected.
+
+
+
+INPUT:							   
+    select   FRISTNAME || ' ' || LASTNAME  FULLNAME
+    from friends;
+     
+OUTPUT:	
+FULLNAME
+---------------------------
+AL BUNDY
+AL MEZA
+BUD MERRICK
+JD MAST
+FERRIS BULHER
+ALTON PERKINS
+SIR BOOS
+7 rows selected.
+
+
+INPUT:							   
+    select   FRISTNAME || ' , ' || LASTNAME  FULLNAME
+    from friends;
+     
+OUTPUT:	
+FULLNAME
+-----------------------------
+AL , BUNDY
+AL , MEZA
+BUD , MERRICK
+JD , MAST
+FERRIS , BULHER
+ALTON , PERKINS
+SIR , BOOS
+7 rows selected.
+
+
+
+
+	                     LOGICAL OPERATOR                                      
+	                        AND,OR,NOT
+
+
+INPUT:							   
+    select  *
+    from VACATION;
+     	
+LASTNAME      EMPLOYEENUM       YEAR LEAVETAKEN
+------------- ----------- ---------- ----------
+ABLE                  101          2          4
+BAKER                 104          5         23
+BELDSOE               107          8         45
+BOLIVAR               233          4         80
+BOLD                  210         15        100
+COSTALES              211         10         78
+
+6 rows selected.
+
+
+
+INPUT:							   
+    select  lastname, year*12 -leavetaken remaining
+    from VACATION
+    where lastname like 'B%' and (year*12 - leavetaken) >50  ;
+     
+
+LASTNAME       REMAINING
+------------- ----------
+BELDSOE               51
+BOLD                  80
+
+
+INPUT:							   
+    select  lastname
+    from VACATION
+    where year<=5 and leavetaken > 20 ;
+
+
+LASTNAME
+-------------
+BAKER
+BOLIVAR
+
+
+
+INPUT:							   
+    select  lastname
+    from VACATION
+    where year>=5 and (year*12 - leavetaken) /(year*12) <.50 ;
+     	
+LASTNAME
+-------------
+BOLD
+COSTALES
+
+
+INPUT:							   
+    select  lastname
+    from VACATION
+    where year>=5 or (year*12 - leavetaken) /(year*12) <.50 ;
+     	
+LASTNAME
+-------------
+BAKER
+BELDSOE
+BOLIVAR
+BOLD
+COSTALES
+
+
+INPUT:	
+    select  *
+    from VACATION
+    where lastname not like 'B%';
+
+OUTPUT:	
+LASTNAME      EMPLOYEENUM       YEAR LEAVETAKEN
+------------- ----------- ---------- ----------
+ABLE                  101          2          4
+COSTALES              211         10         78
+
+
+
+
+
+	                     SET  OPERATION                                      
+	                  union intersect minus     
+
+SQL> select * 
+     from football ;
+
+NAME
+-------------
+ABLE
+BRAVO
+CHARLIE
+DECON
+EXITOR
+FUBAR
+GOOBER
+
+7 rows selected.
+
+SQL> select * 
+     from softball ;
+
+NAME
+-------------
+ABLE
+BAKER
+CHARLIE
+DEAN
+EXITOR
+FALCONER
+GOOBER
+
+7 rows selected.
+
+
+INPUT:
+     select * from football 
+           UNION
+     select * from softball ;
+
+NAME
+-------------
+ABLE
+BAKER
+BRAVO
+CHARLIE
+DEAN
+DECON
+EXITOR
+FALCONER
+FUBAR
+GOOBER
+
+
+INPUT:
+     select fristname name from friends 
+           UNION
+     select lastname  from friends ;
+
+NAME
+-------------
+AL
+ALTON
+BOOS
+BUD
+BULHER
+BUNDY
+FERRIS
+JD
+MAST
+MERRICK
+MEZA
+PERKINS
+SIR
+
+13 rows selected.
+
+
+note: intersect & minus as same as like union
+
+
+
+
+	                     IN & BETWEEN OPERATOR                                      
+	                     
+
+INPUT:
+     select *
+     from friends ;
+
+OUTPUT:
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+BUNDY         AL                   100 555-1111      IL                223333
+MEZA          AL                   200 555-2222      UK
+MERRICK       BUD                  300 555-6666      CO                 80212
+MAST          JD                   381 555-6767      LA                 23456
+BULHER        FERRIS               345 555-3223      IL                 23332
+PERKINS       ALTON                911 555-3116      CA                 95633
+BOOS          SIR                  204 555-2345      CT                 95633
+
+7 rows selected.
+
+
+
+INPUT:
+     select *
+     from friends 
+     where state in ('CA' , 'CO' , 'LA') ;
+
+OUTPUT:
+LASTNAME      FRISTNAME       AREACODE PHONE         STATE                ZIP
+------------- ------------- ---------- ------------- ------------- ----------
+MERRICK       BUD                  300 555-6666      CO                 80212
+MAST          JD                   381 555-6767      LA                 23456
+PERKINS       ALTON                911 555-3116      CA                 95633
+
+
+SQL> select *
+  2  from branch;
+
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Mianus                     Horseneck                      400000
+North                      Town Rye                      3700000
+Perryridge                 Horseneck                     1700000
+Pownal                     Bennington                     300000
+Redwood                    Palo Alto                     2100000
+Round Hill                 Horseneck                     8000000
+
+8 rows selected.
+
+
+INPUT:
+     select *
+     from branch 
+     where ASSETS between 7100000 and 9000000 ;
+
+OUTPUT:
+BRANCH_NAME                BRANCH_CITY                    ASSETS
+-------------------------- -------------------------- ----------
+Brighton                   Brooklyn                      7100000
+Downtown                   Brooklyn                      9000000
+Round Hill                 Horseneck                     8000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

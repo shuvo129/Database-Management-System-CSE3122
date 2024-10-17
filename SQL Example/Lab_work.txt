@@ -1,0 +1,177 @@
+
+
+                                       <<>> LAB **** 01 <<>>
+                                            
+
+
+drop table student ;
+create table student (  
+       name char(26),
+       roll int,
+       regis varchar(10)
+    );
+
+insert into student values ('Tushar',5413,'A100');
+insert into student values ('Karim',5414,'A101');
+insert into student values ('Thamid',5415,'A102');
+insert into student values ('Rahim',5416,'A103');
+insert into student values ('Alamin',5417,'A104');
+
+
+INPUT:
+describe student;
+
+ Name          Null?    Type
+ ------------  -----  --------
+ NAME                   CHAR(26)
+ ROLL                   NUMBER(38)
+ REGIS                  VARCHAR2(10)
+
+
+
+                          *** CHARACTER_OPERATOR ***                                     
+	                            LIKE(%)
+
+
+
+INPUT:(For both CHAR/VARCHAR)	  
+select * from student ;
+
+NAME                             ROLL REGIS
+-------------------------- ---------- ----------
+Tushar                           5413 A100
+Karim                            5414 A101
+Thamid                           5415 A102
+Rahim                            5416 A103
+Alamin                           5417 A104
+
+
+INPUT:(For both CHAR/VARCHAR)	  
+select * from student 
+where name like 'T%';
+
+NAME                             ROLL REGIS
+-------------------------- ---------- ----------
+Tushar                           5413 A100
+Thamid                           5415 A102
+
+
+INPUT:(For both CHAR/VARCHAR)	  
+select * from student 
+where name like '%ami%';
+
+
+NAME                             ROLL REGIS
+-------------------------- ---------- ----------
+Thamid                           5415 A102
+Alamin                           5417 A104
+
+
+INPUT:(For Only VARCHAR)	  
+select * from student 
+where REGIS like '%101%';
+
+
+NAME                             ROLL REGIS
+-------------------------- ---------- ----------
+Karim                            5414 A101
+
+
+
+
+
+
+                                       <<>> LAB **** 02 <<>>
+                                            
+                                     
+drop table student ;
+create table student (  
+       roll int,
+       sub varchar(10),
+       marks int 
+    );
+
+insert into student values ( 5401, 'Bangla', 85);
+insert into student values ( 5401, 'English', 92);
+insert into student values ( 5401, 'Math', 96);
+
+insert into student values ( 5402, 'Bangla', 87);
+insert into student values ( 5402, 'English', 77);
+insert into student values ( 5402, 'Math', 86);
+
+insert into student values ( 5403, 'Bangla', 65);
+insert into student values ( 5403, 'English', 74);
+insert into student values ( 5403, 'Math', 100);
+
+insert into student values ( 5404, 'Bangla', 55);
+insert into student values ( 5404, 'English', 64);
+insert into student values ( 5404, 'Math', 40);
+
+insert into student values ( 5405, 'Bangla', 75);
+insert into student values ( 5405, 'English', 60);
+insert into student values ( 5405, 'Math', 33);
+
+
+
+
+                          *** group by/order by ***                                     
+	                           
+
+
+
+
+INPUT:	  
+select * from student ;
+
+
+      ROLL SUB             MARKS
+---------- ---------- ----------
+      5401 Bangla             85
+      5401 English            92
+      5401 Math               96
+      5402 Bangla             87
+      5402 English            77
+      5402 Math               86
+      5403 Bangla             65
+      5403 English            74
+      5403 Math              100
+      5404 Bangla             55
+      5404 English            64
+      5404 Math               40
+      5405 Bangla             75
+      5405 English            60
+      5405 Math               33
+15 rows selected.
+
+
+
+INPUT :
+select roll, sum(marks) Total_Marks
+       from student
+       group by roll ;
+
+      ROLL TOTAL_MARKS
+---------- -----------
+      5401         273
+      5402         250
+      5403         239
+      5404         159
+      5405         168
+
+
+
+INPUT:
+select roll,sum(marks) ll
+   from student
+   group by roll 
+   order by ll asc ;
+
+      ROLL         LL
+---------- ----------
+      5404        159
+      5405        168
+      5403        239
+      5402        250
+      5401        273
+
+
